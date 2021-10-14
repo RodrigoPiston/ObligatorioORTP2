@@ -42,17 +42,17 @@ public class Sistema {
     
     public boolean agregarJugador(Jugador jugadorNuevo) {
         
-        boolean existe = false;
+        boolean agregar = false;
         
         for (final Jugador jugador : this.getListaJugadores()) {
             if (jugador.equals(jugadorNuevo)) {
-                existe = true;
+                agregar = true;
             }
         }
-        if(!existe){
+        if(!agregar){
             this.getListaJugadores().add(jugadorNuevo);
         }
-        return existe;
+        return !agregar;
     }
     
 }

@@ -1,7 +1,7 @@
 
 import dominio.Juego;
 import dominio.Saltar;
-import static utilidad.Entrada.EsNumero;
+import static utilidad.Entrada.esNumero;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -35,12 +35,12 @@ public class testJuego {
             // -- Se indica que ficha va a ser la siguiente en mover
             System.out.printf("\nSiguiente color de ficha a mover: %s \n",utilidad.Constante.ResolverTextoColor(color));
             // -- Se lee la entrada del usuario
-            entrada = utilidad.Entrada.LeerString("columna o X para finalizar");
+            entrada = utilidad.Entrada.leerString("columna o X para finalizar");
             int columnaIngresada = 0; 
             System.out.println("\n\n\n\n\n\n");
             System.out.println("__________________________________________________________________________________________");
 
-            if(EsNumero(entrada)){
+            if(esNumero(entrada)){
                 columnaIngresada = Integer.parseInt(entrada) - 1; 
                 
                 if(!instanciaSaltar.siguienteMovimiento(color,columnaIngresada)){

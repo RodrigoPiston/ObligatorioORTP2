@@ -6,6 +6,7 @@
 package utilidad;
 
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Scanner;
  */
 public class Entrada {
     
-     public static String LeerString(String texto){
+     public static String leerString(String texto){
         Scanner input = new Scanner(System.in);
         String textoIngresado = "";
         boolean entradaValida = false;
@@ -34,7 +35,7 @@ public class Entrada {
         return textoIngresado;
     } 
      
-    public static int LeerInt(String texto,int minimo,int maximo){
+    public static int leerInt(String texto,int minimo,int maximo){
       Scanner input = new Scanner(System.in);
       boolean entradaValida = false;
       int numeroIngresado = 0;
@@ -51,6 +52,7 @@ public class Entrada {
               }
           } catch (InputMismatchException e) {
               System.out.printf("Debes ingresar un valor de %s valido.\n",texto );
+              input.nextLine();
           }
       }
       return numeroIngresado;
@@ -61,7 +63,7 @@ public class Entrada {
      * @param texto
      * @return
      */
-    public static boolean LeerBoolean(String texto){
+    public static boolean leerBoolean(String texto){
         Scanner input = new Scanner(System.in);
         String textoIngresado = "";
         boolean entradaValida = false;
@@ -81,12 +83,16 @@ public class Entrada {
         return textoIngresado == "Y" || textoIngresado == "y" || textoIngresado == "S" || textoIngresado == "s" ;
     } 
     
-    public static boolean EsNumero(String str) { 
+    public static boolean esNumero(String str) { 
         try {  
           Integer.parseInt(str);  
           return true;
         } catch(NumberFormatException e){  
           return false;  
         }  
+    }
+    
+    public static int getRandom(int min, int max) {
+        return new java.util.Random().nextInt(max - min + 1) + min;
     }
 }
