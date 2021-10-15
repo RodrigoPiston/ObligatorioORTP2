@@ -26,6 +26,16 @@ public class Constante {
         "*"
     };
     
+    public static int ObtenerPosicionColor(String color){
+        int posicion = 0;
+        for (int i = 0; i < caracteresColores.length; i++) {
+            if(caracteresColores[i].equals(color)){
+                posicion = i;
+            }
+        }
+        return posicion;
+    }
+    
     public static String ResolverColor(int codigo){
         return caracteresColores[codigo];
     } 

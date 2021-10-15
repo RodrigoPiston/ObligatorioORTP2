@@ -56,7 +56,7 @@ public class Entrada {
           }
       }
       return numeroIngresado;
-  } 
+    } 
     
        /**
      *

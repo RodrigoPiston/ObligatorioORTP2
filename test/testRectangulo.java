@@ -15,36 +15,44 @@ import static utilidad.Entrada.esNumero;
  */
 public class testRectangulo {
     public static void main(String[] args) {
-        Rectangulo juego = new Rectangulo(false);
+        Rectangulo juego = new Rectangulo(true);
         juego.iniciar();
         String entrada = "";
         int color = 1;
         int puntaje = 0;
-        while(!entrada.equals("X") && !entrada.equals("x")){
+        int rectanguloPosicionX = 0;
+        int rectanguloPosicionY = 0;
+        int rectanguloAlto = 0;
+        int rectanguloAncho = 0;
+
+        while(!entrada.split(" ")[0].equals("X") && !entrada.split(" ")[0].equals("x")){
             for (int i = 0; i < juego.getTablero().length; i++) {
-    //            System.out.print("\n\t\t");
-      System.out.print("\n");
+                System.out.println("");
 
                 for (int j = 0; j < juego.getTablero()[0].length; j++) {
                     System.out.print(juego.getTablero()[i][j]+ " ");
                 }
-              }
-            System.out.printf("\nPuntaje:%d Siguiente color de ficha a mover: %s \n",puntaje,utilidad.Constante.ResolverTextoColor(color));
-            entrada = utilidad.Entrada.leerString("columna o X para finalizar");
-            int columnaIngresada = 0; 
+            }
+            System.out.println("\n");
+            entrada = utilidad.Entrada.leerString("los siguientes valores [Posición X] [Posición Y] [Alto] [Ancho]\nen una sola línea númerica o presiones X para finalizar:");
             System.out.println("\n\n\n\n\n\n");
             System.out.println("__________________________________________________________________________________________");
-
-            if(esNumero(entrada)){
-                columnaIngresada = Integer.parseInt(entrada) - 1; 
-                if(!juego.siguienteMovimiento(color,columnaIngresada)){
-                    System.out.println("Error: Movimiento invalido.");
-                };
-                
-            }else if(!entrada.equals("X")){
-                System.out.println("Debe de ingresar una columna para realizar la siguiente jugada o X para finalizar");
+            try
+            {
+                if(!entrada.split(" ")[0].equals("X")){
+                  
+                    rectanguloPosicionX = Integer.parseInt(entrada.split(" ")[0]); 
+                    rectanguloPosicionY = Integer.parseInt(entrada.split(" ")[1]); 
+                    rectanguloAlto = Integer.parseInt(entrada.split(" ")[2]); 
+                    rectanguloAncho = Integer.parseInt(entrada.split(" ")[3]);
+                    if(!juego.siguienteMovimiento(color,rectanguloPosicionX,rectanguloPosicionY,rectanguloAlto,rectanguloAncho)){
+                        System.out.println("Error: Movimiento invalido.");
+                    };
+                }
+            }catch(Exception e){
+                System.out.println("\nError: Se ingresaron datos invalidos");
             }
-            
+
             if(color == 4){
                 color = 1;
             }else{

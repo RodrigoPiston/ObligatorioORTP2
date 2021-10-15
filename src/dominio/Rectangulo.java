@@ -27,6 +27,10 @@ public class Rectangulo extends Juego {
         return tableroFichas;
     }
 
+    public void setTableroFichas(int[][] tablero) {
+        this.tableroFichas = tablero;
+    }
+    
     public String[][] getTablero() {
         return tablero;
     }
@@ -49,7 +53,7 @@ public class Rectangulo extends Juego {
      *
      */
     public void recargar(){
-        
+         this.generarTablero();
     }
     
     private void generarFichasAlAzar(){
@@ -78,7 +82,7 @@ public class Rectangulo extends Juego {
     
     private void generarTablero() {
         // -- Se arma los espacios sin utilizar
-        this.getTablero()[0][0] = "xx";
+        this.getTablero()[0][0] = "  ";
         this.getTablero()[1][0] = "           ";
 
         for (int fila = 0; fila < this.getTableroFichas().length ; fila++) {
@@ -111,46 +115,50 @@ public class Rectangulo extends Juego {
     }
 
     
-    public boolean siguienteMovimiento(int colorSeleccionado,int colSeleccionada){
-        boolean movimientoPermitido = false;
-        if(colSeleccionada >= 0 && colSeleccionada <= 3 ){
-            int filaOrigen = 0;
-            int cantidadSaltos = 0;
-            int filaDestino = 0;
-            for (int fila = this.getTableroFichas().length -1; fila > 0 ; fila--) {
-
-                // -- Si se encuentra el color en la columna, se verifica cuantas veces hay que saltar
-                if(this.getTableroFichas()[fila][colSeleccionada] == colorSeleccionado){
-                    filaOrigen = fila;
-                     for (int columna = 0; columna < this.getTableroFichas()[0].length; columna++) {
-                        if(this.getTableroFichas()[fila][columna] != 0){
-                            cantidadSaltos ++;
-                        }                    
-                    }
-                }
-            }
-            filaDestino = filaOrigen - cantidadSaltos;
-            if(filaDestino > 0 && filaOrigen > 4  && this.getTableroFichas()[filaDestino][colSeleccionada] == 0 ){
-                movimientoPermitido = true;
-                for (int columna = 0; columna < this.getTableroFichas()[filaDestino].length && movimientoPermitido; columna++) {
-                    if(this.getTableroFichas()[filaDestino][columna] == colorSeleccionado){
-                        movimientoPermitido = false;
-                    }
-                }
-                if(movimientoPermitido){
-                    this.getTableroFichas()[filaOrigen][colSeleccionada] = 0;
-                    this.getTableroFichas()[filaDestino][colSeleccionada] = colorSeleccionado;
-                }
-            }else{
-                movimientoPermitido = false;
-            }
-        }
-        return movimientoPermitido;
-    }
-    
     public int calcularPuntaje(){
         return 0;
     };
+
+    public boolean siguienteMovimiento(int colorActual,int rectanguloPosicionX, int rectanguloPosicionY, int rectanguloAlto, int rectanguloAncho) {
+        boolean movimientoPermitido = true;
+        // -- Si no se le resta 1 estaría desfasado en el array
+        rectanguloPosicionX -= 1;
+        rectanguloPosicionY -= 1;
+        int coordenadaXFinal = (rectanguloPosicionX + rectanguloAlto);
+        int coordenadaYFinal = (rectanguloPosicionY + rectanguloAncho);
+        int [][] tableroAuxiliar = this.getTableroFichas().clone();        
+        System.out.printf("Color %d rectanguloPosicionX:%d rectanguloPosicionY:%d rectanguloAlto:%d rectanguloAncho:%d\n",colorActual,rectanguloPosicionX,rectanguloPosicionY, rectanguloAlto,rectanguloAncho,rectanguloAncho);
+
+        if(rectanguloPosicionX >= 0 && rectanguloPosicionX < tableroAuxiliar[0].length && rectanguloPosicionY >= 0 && rectanguloPosicionY < tableroAuxiliar.length){
+            for(int fila = rectanguloPosicionX ; fila < coordenadaXFinal && movimientoPermitido ; fila++) {
+                for (int columna = rectanguloPosicionY; columna < coordenadaYFinal && movimientoPermitido; columna++) {
+                    // -- Si es igual a un * se termina
+                    if(tableroAuxiliar[fila][columna] == 6 || tableroAuxiliar[fila][columna] == 1 || tableroAuxiliar[fila][columna] == 2 || 
+                       tableroAuxiliar[fila][columna] == 3 || tableroAuxiliar[fila][columna] == 4){
+                       movimientoPermitido = false;
+                    }else{
+                        tableroAuxiliar[fila][columna] = colorActual;
+                    }
+                }
+            }
+        }else{
+            movimientoPermitido = false;
+        }
+        /* Hay que recorrer los bordes
+        for (int fila = 0; fila < tableroAuxiliar.length; fila++) {
+            
+        }*/
+        
+        if(movimientoPermitido){
+            this.setTableroFichas(tableroAuxiliar);
+        }
+        return movimientoPermitido;
+    }
+
+    @Override
+    public boolean siguienteMovimiento(int colorSeleccionado, int colSeleccionada) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 
 }
