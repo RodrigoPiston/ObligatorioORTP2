@@ -24,7 +24,7 @@ public class testRectangulo {
         int rectanguloPosicionY = 0;
         int rectanguloAlto = 0;
         int rectanguloAncho = 0;
-
+        boolean primeraJugada = true;
         while(!entrada.split(" ")[0].equals("X") && !entrada.split(" ")[0].equals("x")){
             for (int i = 0; i < juego.getTablero().length; i++) {
                 System.out.println("");
@@ -45,8 +45,10 @@ public class testRectangulo {
                     rectanguloPosicionY = Integer.parseInt(entrada.split(" ")[1]); 
                     rectanguloAlto = Integer.parseInt(entrada.split(" ")[2]); 
                     rectanguloAncho = Integer.parseInt(entrada.split(" ")[3]);
-                    if(!juego.siguienteMovimiento(color,rectanguloPosicionX,rectanguloPosicionY,rectanguloAlto,rectanguloAncho)){
+                    if(!juego.siguienteMovimiento(color,rectanguloPosicionX,rectanguloPosicionY,rectanguloAlto,rectanguloAncho,primeraJugada)){
                         System.out.println("Error: Movimiento invalido.");
+                    }else{
+                        primeraJugada = false;
                     };
                 }
             }catch(Exception e){

@@ -10,7 +10,7 @@ package utilidad;
  *
  * @author heido
  */
-public class Constante {
+public class Generico {
     
     // -- 0:RESET - 1:ROJO - 2:AZUL - 3:VERDE - 4:AMARILLO
     public static String [] COLORES = {"\u001B[0m","\u001B[31m","\u001B[34m","\u001B[32m","\u001B[33m"};
@@ -60,6 +60,14 @@ public class Constante {
         return textoColor + COLORES[0];
     } 
     
-  
+    
+    public static void CopiarMatriz(int[][] original, int[][] copia){
+         for (int fila = 0; fila < original.length; fila++) {
+            for (int columna = 0; columna < original[0].length; columna++) {
+                copia[fila][columna] = original[fila][columna];
+            }
+        }
+    }
+    
     
 }

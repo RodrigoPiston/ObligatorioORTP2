@@ -3,6 +3,7 @@
 package dominio;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 /**
  *
@@ -87,7 +88,7 @@ public class Rectangulo extends Juego {
 
         for (int fila = 0; fila < this.getTableroFichas().length ; fila++) {
             for (int columna = 0; columna < this.getTableroFichas()[0].length ; columna++) {
-                this.getTablero()[fila + 2][columna + 1] = utilidad.Constante.ResolverColor(this.getTableroFichas()[fila ][columna]); 
+                this.getTablero()[fila + 2][columna + 1] = utilidad.Generico.ResolverColor(this.getTableroFichas()[fila][columna]); 
                 if(columna < 9){
                     this.getTablero()[0][columna+ 1] =  String.format("%d", ( columna + 1)) ;
                     this.getTablero()[1][columna + 1] =  "" ;
@@ -106,7 +107,6 @@ public class Rectangulo extends Juego {
         // --  Para no tratar con la posición 0
         columnaSeleccionada += 1;
         for (int columna = 0; columna < this.getPosicionesPredeterminadas()[fila].length && !generar; columna++) {
-            System.out.printf("valor:%d fila:%d columna:%d\n",this.getPosicionesPredeterminadas()[fila][columna],fila,columnaSeleccionada);
             if(this.getPosicionesPredeterminadas()[fila][columna] == columnaSeleccionada){
                 generar = true;
             }
@@ -119,18 +119,23 @@ public class Rectangulo extends Juego {
         return 0;
     };
 
-    public boolean siguienteMovimiento(int colorActual,int rectanguloPosicionX, int rectanguloPosicionY, int rectanguloAlto, int rectanguloAncho) {
+    public boolean siguienteMovimiento(int colorActual,int rectanguloPosicionX, int rectanguloPosicionY, int rectanguloAlto, int rectanguloAncho, boolean primeraJugada) {
         boolean movimientoPermitido = true;
+        boolean encontroAdyacente = false;
+
         // -- Si no se le resta 1 estaría desfasado en el array
         rectanguloPosicionX -= 1;
         rectanguloPosicionY -= 1;
         int coordenadaXFinal = (rectanguloPosicionX + rectanguloAlto);
         int coordenadaYFinal = (rectanguloPosicionY + rectanguloAncho);
-        int [][] tableroAuxiliar = this.getTableroFichas().clone();        
+        int [][] tableroAuxiliar = new int [20][20];  
+       
+        utilidad.Generico.CopiarMatriz(tableroFichas, tableroAuxiliar);
+       
         System.out.printf("Color %d rectanguloPosicionX:%d rectanguloPosicionY:%d rectanguloAlto:%d rectanguloAncho:%d\n",colorActual,rectanguloPosicionX,rectanguloPosicionY, rectanguloAlto,rectanguloAncho,rectanguloAncho);
 
         if(rectanguloPosicionX >= 0 && rectanguloPosicionX < tableroAuxiliar[0].length && rectanguloPosicionY >= 0 && rectanguloPosicionY < tableroAuxiliar.length){
-            for(int fila = rectanguloPosicionX ; fila < coordenadaXFinal && movimientoPermitido ; fila++) {
+            for(int fila = rectanguloPosicionX ; fila < coordenadaXFinal && movimientoPermitido; fila++) {
                 for (int columna = rectanguloPosicionY; columna < coordenadaYFinal && movimientoPermitido; columna++) {
                     // -- Si es igual a un * se termina
                     if(tableroAuxiliar[fila][columna] == 6 || tableroAuxiliar[fila][columna] == 1 || tableroAuxiliar[fila][columna] == 2 || 
@@ -139,18 +144,32 @@ public class Rectangulo extends Juego {
                     }else{
                         tableroAuxiliar[fila][columna] = colorActual;
                     }
+                    
+                    // -- Se controlan los bordes exteriores
+                    // -- Borde Izquierdo
+                    if(fila == rectanguloPosicionX  && (fila - 1) >= 0 && tableroAuxiliar[fila -1][columna] == 1){
+                        encontroAdyacente = true;
+                    // -- Borde Derecho
+                    }else if(fila == coordenadaXFinal && (fila + 1) < tableroAuxiliar.length && tableroAuxiliar[fila + 1][columna] == 1){
+                        encontroAdyacente = true;
+                    // -- Borde Superior
+                    }else if(columna == rectanguloPosicionY&& (columna - 1) >= 0   && tableroAuxiliar[fila][columna - 1] == 1 ){
+                        encontroAdyacente = true;
+                    // -- Borde Inferior
+                    }else if(columna == coordenadaYFinal&& (columna + 1) < tableroAuxiliar[0].length && tableroAuxiliar[fila][columna + 1] == 1 ){
+                        encontroAdyacente = true;
+                    }         
                 }
             }
+            
         }else{
             movimientoPermitido = false;
         }
-        /* Hay que recorrer los bordes
-        for (int fila = 0; fila < tableroAuxiliar.length; fila++) {
-            
-        }*/
+        movimientoPermitido = movimientoPermitido && (encontroAdyacente || primeraJugada);
         
         if(movimientoPermitido){
-            this.setTableroFichas(tableroAuxiliar);
+        
+            utilidad.Generico.CopiarMatriz(tableroAuxiliar, this.getTableroFichas());
         }
         return movimientoPermitido;
     }

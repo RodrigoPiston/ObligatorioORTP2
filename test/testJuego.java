@@ -33,7 +33,7 @@ public class testJuego {
                 }
             }
             // -- Se indica que ficha va a ser la siguiente en mover
-            System.out.printf("\nSiguiente color de ficha a mover: %s \n",utilidad.Constante.ResolverTextoColor(color));
+            System.out.printf("\nSiguiente color de ficha a mover: %s \n",utilidad.Generico.ResolverTextoColor(color));
             // -- Se lee la entrada del usuario
             entrada = utilidad.Entrada.leerString("columna o X para finalizar");
             int columnaIngresada = 0; 

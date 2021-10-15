@@ -99,7 +99,7 @@ public class Saltar extends Juego{
                     if(!columnaPar){
                         this.getTablero()[fila][columna] = "|"; 
                     }else{
-                            this.getTablero()[fila][columna] = utilidad.Constante.ResolverColor(tableroFichas[filaTableroFichas][columnaTableroFichas]); 
+                            this.getTablero()[fila][columna] = utilidad.Generico.ResolverColor(tableroFichas[filaTableroFichas][columnaTableroFichas]); 
                         columnaTableroFichas ++;
                     }
                 }
