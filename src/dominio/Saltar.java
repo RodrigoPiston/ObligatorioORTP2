@@ -11,11 +11,11 @@ public class Saltar extends Juego{
 
     private String [][] matrizInterfaz = new String[24][10];
     /// -- Fichas predetermiandas
-    private int [][] tableroFichasBase  ={{1,2,3,4},{2,1,4,3},{3,4,2,1},{4,3,1,2}};
+    private int [][] tableroFichasBase = {{1,2,3,4},{2,1,4,3},{3,4,2,1},{4,3,1,2}};
     private int [][] tableroFichas = new int [11][4];
     
     public Saltar(boolean configuracionPredeterminada) {
-        super("Saltar", configuracionPredeterminada);
+        super(configuracionPredeterminada);
     }
 
     public String[][] getTablero() {
@@ -99,7 +99,7 @@ public class Saltar extends Juego{
                     if(!columnaPar){
                         this.getTablero()[fila][columna] = "|"; 
                     }else{
-                            this.getTablero()[fila][columna] = utilidad.Generico.ResolverColor(tableroFichas[filaTableroFichas][columnaTableroFichas]); 
+                            this.getTablero()[fila][columna] = utilidad.Generico.RetornarColor(tableroFichas[filaTableroFichas][columnaTableroFichas]); 
                         columnaTableroFichas ++;
                     }
                 }

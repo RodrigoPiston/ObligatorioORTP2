@@ -15,7 +15,7 @@ public class Generico {
     // -- 0:RESET - 1:ROJO - 2:AZUL - 3:VERDE - 4:AMARILLO
     public static String [] COLORES = {"\u001B[0m","\u001B[31m","\u001B[34m","\u001B[32m","\u001B[33m"};
 
-    // 0:RESET | 1:[#] ROJO | 2: [#] AZUL | 3: [#] VERDE | 4: [#] AMARILLO | 5: [-] Sin color | 6: [*] Sin Color
+      // 0:RESET | 1:[#] ROJO | 2: [#] AZUL | 3: [#] VERDE | 4: [#] AMARILLO | 5: [-] Sin color | 6: [*] Sin Color
     public static String [] caracteresColores = {
         " ",
         COLORES[1]+"#"+ COLORES[0],
@@ -36,7 +36,7 @@ public class Generico {
         return posicion;
     }
     
-    public static String ResolverColor(int codigo){
+    public static String RetornarColor(int codigo){
         return caracteresColores[codigo];
     } 
     
@@ -56,13 +56,15 @@ public class Generico {
                 textoColor = COLORES[4] + "[M] Amarillo";
                 break;
         }
-        
         return textoColor + COLORES[0];
-    } 
+    }
     
+    public static boolean EsNumeral(int codigo){
+        return caracteresColores[codigo].contains("#");
+    }
     
     public static void CopiarMatriz(int[][] original, int[][] copia){
-         for (int fila = 0; fila < original.length; fila++) {
+         for (int fila = 1; fila < original.length; fila++) {
             for (int columna = 0; columna < original[0].length; columna++) {
                 copia[fila][columna] = original[fila][columna];
             }

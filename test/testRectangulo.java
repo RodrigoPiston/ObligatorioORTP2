@@ -17,15 +17,18 @@ public class testRectangulo {
     public static void main(String[] args) {
         Rectangulo juego = new Rectangulo(true);
         juego.iniciar();
+        String [] arrayEntrada = {"","","",""};        
         String entrada = "";
+
         int color = 1;
-        int puntaje = 0;
         int rectanguloPosicionX = 0;
         int rectanguloPosicionY = 0;
         int rectanguloAlto = 0;
         int rectanguloAncho = 0;
+        int cantidadRectangulos = 0;
         boolean primeraJugada = true;
-        while(!entrada.split(" ")[0].equals("X") && !entrada.split(" ")[0].equals("x")){
+        boolean terminaJuego = false;
+        while(terminaJuego){
             for (int i = 0; i < juego.getTablero().length; i++) {
                 System.out.println("");
 
@@ -34,35 +37,50 @@ public class testRectangulo {
                 }
             }
             System.out.println("\n");
+            // -- Se lee la entrada con una función utilitaria
             entrada = utilidad.Entrada.leerString("los siguientes valores [Posición X] [Posición Y] [Alto] [Ancho]\nen una sola línea númerica o presiones X para finalizar:");
-            System.out.println("\n\n\n\n\n\n");
-            System.out.println("__________________________________________________________________________________________");
+            
+            // -- Se convierte la entrada en un array con split, se utiliza expresiones regulares para separar por espacios o tabuladores, 
+            //    para imperdir que tome mal la entrada con muchos espacios
+            arrayEntrada = entrada.trim().split("\\s+\\t|\\t\\s+|\\s+");
+            // -- Para cortar un poco el rastro en pantalla y que parezca que refresca las mismas posiciones
+            System.out.println("\n\n\n\n\n\n\n\n\n\n");
             try
             {
-                if(!entrada.split(" ")[0].equals("X")){
-                  
-                    rectanguloPosicionX = Integer.parseInt(entrada.split(" ")[0]); 
-                    rectanguloPosicionY = Integer.parseInt(entrada.split(" ")[1]); 
-                    rectanguloAlto = Integer.parseInt(entrada.split(" ")[2]); 
-                    rectanguloAncho = Integer.parseInt(entrada.split(" ")[3]);
+                if(arrayEntrada.length == 4){
+                    rectanguloPosicionX = Integer.parseInt(arrayEntrada[0]); 
+                    rectanguloPosicionY = Integer.parseInt(arrayEntrada[1]); 
+                    rectanguloAlto = Integer.parseInt(arrayEntrada[2]); 
+                    rectanguloAncho = Integer.parseInt(arrayEntrada[3]);
                     if(!juego.siguienteMovimiento(color,rectanguloPosicionX,rectanguloPosicionY,rectanguloAlto,rectanguloAncho,primeraJugada)){
                         System.out.println("Error: Movimiento invalido.");
                     }else{
+                        cantidadRectangulos ++;
                         primeraJugada = false;
                     };
+                    
+                    // -- Solo se cambia de color cuando es correcta la entrada
+                    if(color == 4){
+                        color = 1;
+                    }else{
+                        color ++;
+                    }
+                }else if(!arrayEntrada[0].equals("X"))
+                {
+                    System.out.println("\nError: Se ingresaron datos invalidos, debe ingresar al menos 4 valores");
                 }
+                
             }catch(Exception e){
-                System.out.println("\nError: Se ingresaron datos invalidos");
+                System.out.println("\nError: Se ingresaron datos invalidos, solo puede ingresar números");
             }
-
-            if(color == 4){
-                color = 1;
-            }else{
-                color ++;
-            }
+            
             juego.recargar();
 
-            puntaje = juego.calcularPuntaje();
+            System.out.printf("El puntaje es: %d \n",juego.calcularPuntaje());
+            if(!arrayEntrada[0].equals("X") && !arrayEntrada[0].equals("x") && cantidadRectangulos <= 10 && juego.quedanRectangulosDisponibles()){
+                terminaJuego = true;
+                System.out.println("Fin del juego!");
+            }
         }
     }
 }

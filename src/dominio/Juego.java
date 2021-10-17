@@ -10,25 +10,15 @@ import java.time.LocalDateTime;
  * @author Rodrigo Pistón
  */
 public abstract class Juego {
-    private String nombre; 
     private boolean configuracionPrecargada;
     private int puntaje;
 
-    public Juego(String nombre, boolean configuracionPrecargada) {
-        this.setNombre(nombre);
+    public Juego(boolean configuracionPrecargada) {
         this.setConfiguracionPrecargada(configuracionPrecargada);
-    }
-
-    public String getNombre() {
-        return this.nombre;
     }
 
     public int getPuntaje() {
         return this.puntaje;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
     
     public void setPuntaje(int puntaje) {
