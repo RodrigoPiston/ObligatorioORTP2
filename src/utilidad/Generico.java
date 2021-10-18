@@ -14,6 +14,7 @@ import dominio.Ficha;
  */
 public class Generico {
     
+    public static Ficha fichaVacia = new Ficha(0," ");
     // -- 0:RESET - 1:ROJO - 2:AZUL - 3:VERDE - 4:AMARILLO
     public static String [] COLORES = {"\u001B[0m","\u001B[31m","\u001B[34m","\u001B[32m","\u001B[33m"};
 
@@ -27,6 +28,10 @@ public class Generico {
         "-",
         "*"
     };
+
+    public static String RetornarColor(int codigo){
+        return caracteresColores[codigo];
+    } 
     
     public static String ResolverTextoColor(int codigo){
         String textoColor = "";

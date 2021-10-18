@@ -171,6 +171,7 @@ public class MenuSecundario {
         int contListaFichas = 0;
         int puntaje = 0;
         int columnaIngresada = 0;
+        int columnaRecomendada = 0;
         boolean terminaJuego = false;
         Ficha ficha;
         juegoSaltar.iniciar();
@@ -186,28 +187,39 @@ public class MenuSecundario {
             // -- Se indica que ficha va a ser la siguiente en mover
             System.out.printf("\nSiguiente color de ficha a mover: %s \n",ficha.getFichaColoreada());
             // -- Se lee la entrada del usuario
-            entrada = utilidad.Entrada.leerString("columna o X para finalizar");
+            entrada = utilidad.Entrada.leerString("columna, [A] para ayuda o [X] para finalizar");
             
             if(esNumero(entrada)){
                 columnaIngresada = Integer.parseInt(entrada) - 1;
                 if(!juegoSaltar.siguienteMovimiento(ficha,columnaIngresada)){
                     System.out.println("Error: Movimiento invalido.");
                 };
-            }else if(!entrada.equals("X") && !entrada.equals("x")){
+            }else if(!entrada.equals("X") && !entrada.equals("x") && !entrada.equals("A") && !entrada.equals("a")){
                 System.out.println("Error, debe de ingresar una columna para realizar la siguiente jugada o X para finalizar");
             }
             
-            if(contListaFichas == 3){
-                contListaFichas = 1;
+            
+            columnaRecomendada = juegoSaltar.obtenerColumnaRecomendada(ficha);
+            
+            if(columnaRecomendada == -1){
+                terminaJuego = true;
+                System.out.println("No quedan mas movimientos!");
             }else{
-                contListaFichas ++;
+                if(entrada.equals("A") || entrada.equals("a")){
+                    System.out.printf("Columna recomendada:%d",columnaRecomendada);
+                }else{
+                    if(contListaFichas == 3){
+                        contListaFichas = 1;
+                    }else{
+                        contListaFichas ++;
+                    }    
+                    // -- Se muestra puntaje en pantalla
+                }
             }
-            
+          
             juegoSaltar.recargar();
-            
-            // -- Se muestra puntaje en pantalla
             System.out.printf("\nPuntaje: %d",puntaje);
-            
+
             if(entrada.equals("X") || entrada.equals("x")){
                 terminaJuego = true;
                 System.out.println("Fin del juego!");

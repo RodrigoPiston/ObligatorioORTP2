@@ -4,15 +4,17 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/heido/Documents/GitHub/ObligatorioORTP2/src/dominio/Sistema.java</file>
-            <file>file:/C:/Users/heido/Documents/GitHub/ObligatorioORTP2/src/dominio/Saltar.java</file>
             <file>file:/C:/Users/heido/Documents/GitHub/ObligatorioORTP2/src/dominio/TableroSaltar.java</file>
             <file>file:/C:/Users/heido/Documents/GitHub/ObligatorioORTP2/src/utilidad/Entrada.java</file>
+            <file>file:/C:/Users/heido/Documents/GitHub/ObligatorioORTP2/src/interfaz/MenuPrincipal.java</file>
             <file>file:/C:/Users/heido/Documents/GitHub/ObligatorioORTP2/src/interfaz/MenuSecundario.java</file>
+            <file>file:/C:/Users/heido/Documents/GitHub/ObligatorioORTP2/src/dominio/Tablero.java</file>
+            <file>file:/C:/Users/heido/Documents/GitHub/ObligatorioORTP2/src/dominio/Jugador.java</file>
             <file>file:/C:/Users/heido/Documents/GitHub/ObligatorioORTP2/src/dominio/TableroRectangulo.java</file>
+            <file>file:/C:/Users/heido/Documents/GitHub/ObligatorioORTP2/src/dominio/Ficha.java</file>
             <file>file:/C:/Users/heido/Documents/GitHub/ObligatorioORTP2/test/testRectangulo.java</file>
-            <file>file:/C:/Users/heido/Documents/GitHub/ObligatorioORTP2/src/dominio/Juego.java</file>
             <file>file:/C:/Users/heido/Documents/GitHub/ObligatorioORTP2/src/utilidad/Generico.java</file>
-            <file>file:/C:/Users/heido/Documents/GitHub/ObligatorioORTP2/src/dominio/Rectangulo.java</file>
+            <file>file:/C:/Users/heido/Documents/GitHub/ObligatorioORTP2/src/dominio/Partida.java</file>
         </group>
     </open-files>
 </project-private>

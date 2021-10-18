@@ -64,6 +64,30 @@ public class Saltar extends Juego{
         return movimientoPermitido;
     }
     
+    public int obtenerColumnaRecomendada(Ficha ficha){
+        Ficha[][] matrizFichas = this.getTablero().getFichas();
+        int columnaRecomendada = -1;
+        int cantidadSaltos;
+        int filaDestino;
+        for (int fila = 4; fila < matrizFichas.length && columnaRecomendada == -1; fila++) {
+            for (int columna = 0; columna < matrizFichas[0].length && columnaRecomendada == -1; columna++) {
+                cantidadSaltos = 0;
+                if(matrizFichas[fila][columna].equals(ficha)){
+                    for (int columnaFicha = 0; columnaFicha < matrizFichas[fila].length && columnaRecomendada == -1; columnaFicha++) {
+                        if(!matrizFichas[fila][columna].equals(utilidad.Generico.fichaVacia)){
+                            cantidadSaltos ++;
+                        }
+                    }
+                    filaDestino = fila - cantidadSaltos;
+                    if(filaDestino > 0 && matrizFichas[filaDestino][columna].equals(utilidad.Generico.fichaVacia) ){
+                        columnaRecomendada = columna;
+                    }
+                }
+            }
+        }
+        return columnaRecomendada;
+    }
+    
     public int calcularPuntaje(){
         Ficha [][] tableroFichas = this.getTablero().getFichas();
         Ficha fichaVacia = new Ficha(0," ");
