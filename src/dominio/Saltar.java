@@ -9,11 +9,6 @@ import java.time.LocalDateTime;
  */
 public class Saltar extends Juego{
 
-  //  private String [][] matrizInterfaz = new String[24][10];
-    /// -- Fichas predetermiandas
-   // private int [][] tableroFichasBase = {{1,2,3,4},{2,1,4,3},{3,4,2,1},{4,3,1,2}};
-  //  private int [][] tableroFichas = new int [11][4];
-    
     public Saltar(boolean configuracionPredeterminada) {
         super(configuracionPredeterminada);
         this.setTablero(new TableroSaltar());

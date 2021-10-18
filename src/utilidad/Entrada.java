@@ -44,9 +44,9 @@ public class Entrada {
               System.out.println("Ingrese " +texto);
               numeroIngresado = input.nextInt();
               if(minimo != 0 && numeroIngresado <= minimo){
-                  System.out.printf("Debes de ingresar un valor de %s mayor a %d\n",texto,minimo);
+                  System.out.printf("Debes de ingresar un número de %s mayor a %d\n",texto,minimo);
               }else if(maximo != 0 && numeroIngresado >= maximo){
-                  System.out.printf("Debes de ingresar un valor de %s menor a %d\n",texto,maximo);
+                  System.out.printf("Debes de ingresar un número de %s menor a %d\n",texto,maximo);
               }else{
                   entradaValida = true;
               }

@@ -31,7 +31,7 @@ public class TableroRectangulo extends Tablero {
     
     @Override
     public void generarTablero() {
-        String [][] contenidoTablero = new String[(super.getLargo() * 2) + 2][(super.getAncho()* 2) + 2];
+        String [][] contenidoTablero = new String[super.getLargo() + 2][super.getAncho() + 1];
 
         // -- Se arma los espacios sin utilizar
         contenidoTablero[0][0] = "  ";

@@ -5,6 +5,8 @@
  */
 package utilidad;
 
+import dominio.Ficha;
+
 
 /**
  *
@@ -26,20 +28,6 @@ public class Generico {
         "*"
     };
     
-    public static int ObtenerPosicionColor(String color){
-        int posicion = 0;
-        for (int i = 0; i < caracteresColores.length; i++) {
-            if(caracteresColores[i].equals(color)){
-                posicion = i;
-            }
-        }
-        return posicion;
-    }
-    
-    public static String RetornarColor(int codigo){
-        return caracteresColores[codigo];
-    } 
-    
     public static String ResolverTextoColor(int codigo){
         String textoColor = "";
         switch(codigo){
@@ -60,8 +48,8 @@ public class Generico {
     }
     
        
-    public static void CopiarMatriz(Object original, Object copia){
-         for (int fila = 1; fila < original.length; fila++) {
+    public static void CopiarMatriz(Ficha[][] original, Ficha[][] copia){
+         for (int fila = 0; fila < original.length; fila++) {
             for (int columna = 0; columna < original[0].length; columna++) {
                 copia[fila][columna] = original[fila][columna];
             }

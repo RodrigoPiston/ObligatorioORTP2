@@ -70,16 +70,6 @@ public abstract class Tablero {
     public void setFichas(Ficha[][] fichas) {
         this.fichas = fichas;
     }
-  /*
-    public void generarTablero(){
-        int verdaderoLargo = ancho + this.getAnexos()[0].length;
-        String [][] contenidoTablero = new String[ancho][largo];
-        for (int fila = 0; fila < this.getContenido().length; fila++) {
-            for (int columna = 0; columna < this.getContenido()[0].length; columna++) {
-                
-            }
-        }
-    }*/
     
     public abstract void generarTablero();
     public abstract void generarFichasAlAzar();

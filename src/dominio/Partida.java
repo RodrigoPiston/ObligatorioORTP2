@@ -3,22 +3,24 @@
 package dominio;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 
 /**
  *
  * @author Rodrigo Pistón
  */
-public class Partida {
+public class Partida{
+    
     private LocalDateTime horaComienzo;
     private Jugador jugador;
     private Juego juego;
     private int puntaje;
 
-    public Partida(Jugador jugador, Juego juego) {
+    public Partida(Jugador jugador, Juego juego,int puntaje) {
         this.setHoraComienzo(LocalDateTime.now());
         this.setJuego(juego);
         this.setJugador(jugador);
-        this.setPuntaje(0);
+        this.setPuntaje(puntaje);
     }
 
     public void setPuntaje(int puntaje) {
@@ -52,6 +54,5 @@ public class Partida {
     private void setJugador(Jugador jugador) {
         this.jugador = jugador;
     }
-
 }
 

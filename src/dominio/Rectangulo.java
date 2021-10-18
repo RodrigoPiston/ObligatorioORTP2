@@ -12,11 +12,9 @@ import utilidad.Generico;
  */
 public class Rectangulo extends Juego {
 
- //   private int [][] tableroFichas = new int [20][20];
-  //  private String [][] tablero = new String[22][21];
-
     public Rectangulo(boolean configuracionPredeterminada) {
         super(configuracionPredeterminada);
+        this.setTablero(new TableroRectangulo());
     }
 
     public void iniciar(){
@@ -30,7 +28,7 @@ public class Rectangulo extends Juego {
         this.getTablero().generarTablero();
     }
 
-    public boolean siguienteMovimiento(Ficha colorActual,int coordenadaXInicial, int coordenadaYInicial, int rectanguloAlto, int rectanguloAncho, boolean primeraJugada) {
+    public boolean siguienteMovimiento(Ficha ficha,int coordenadaXInicial, int coordenadaYInicial, int rectanguloAlto, int rectanguloAncho, boolean primeraJugada) {
         boolean movimientoPermitido = true;
         boolean encontroAdyacente = false;
         Ficha fGuion = new Ficha(0,"-");
@@ -41,10 +39,8 @@ public class Rectangulo extends Juego {
         int coordenadaYFinal = (coordenadaYInicial + rectanguloAncho);
         Ficha[][] tableroAuxiliar = new Ficha [this.getTablero().getAncho()][this.getTablero().getLargo()];  
         
-        utilidad.Generico.CopiarMatriz(tableroAuxiliar, tableroAuxiliar);
+        utilidad.Generico.CopiarMatriz(this.getTablero().getFichas(), tableroAuxiliar);
         
-        System.out.printf("Color %d rectanguloPosicionX:%d rectanguloPosicionY:%d rectanguloAlto:%d rectanguloAncho:%d\n",colorActual,coordenadaXInicial,coordenadaYInicial, rectanguloAlto,rectanguloAncho,rectanguloAncho);
-
         // -- Si las coordenadas estan dentro del tamaño del tablero
         if(coordenadaXInicial >= 0 && coordenadaXInicial < tableroAuxiliar[0].length && coordenadaYInicial >= 0 && coordenadaYInicial < tableroAuxiliar.length){
             // -- Se recorre el tablero solo en las posiciones del rectangulo cálculado para ahorrar iteraciones innecesarias
@@ -54,7 +50,7 @@ public class Rectangulo extends Juego {
                     if(!tableroAuxiliar[fila][columna].equals(fGuion)){
                        movimientoPermitido = false;
                     }else{
-                        tableroAuxiliar[fila][columna] = colorActual;
+                        tableroAuxiliar[fila][columna] = ficha;
                     }
                     
                     // -- Se controlan los bordes exteriores, sin pasarse del límite del rectangulo,
