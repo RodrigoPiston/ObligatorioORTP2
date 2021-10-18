@@ -71,7 +71,7 @@ public class MenuPrincipal {
                         System.out.println("Debes seleccionar solo números entre 1 y 5");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Debes de ingrasar un número");
+                System.out.println("Debes de ingresar un número");
             }
         }
     }
