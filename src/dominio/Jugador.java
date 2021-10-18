@@ -45,6 +45,9 @@ public class Jugador {
     public boolean equals(Object obj){
         return this.getAlias().equalsIgnoreCase(((Jugador) obj).getAlias());
     }
-
     
+    @Override
+    public String toString(){
+        return this.getNombre() + " [" + this.getAlias() + "]";
+    }
 }

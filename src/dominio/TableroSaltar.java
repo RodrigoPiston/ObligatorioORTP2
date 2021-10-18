@@ -5,11 +5,11 @@ package dominio;
  * @author  Rodrigo Pistón(261777) | Rodrigo Camps(241344)
  */
 public class TableroSaltar extends Tablero{
-    private static int ancho = 11;
-    private static int largo = 4;
+    private static int Ancho = 11;
+    private static int Largo = 4;
 
     public TableroSaltar() {
-        super(ancho, largo);
+        super(Ancho, Largo);
         this.generarFichasPredeterminadas();
     }
 
@@ -49,7 +49,7 @@ public class TableroSaltar extends Tablero{
                         contenidoTablero[fila][columna] = "|"; 
                     }else{
                         if(this.getFichas()[filaTableroFichas][columnaTableroFichas]!= null){
-                            contenidoTablero[fila][columna] = this.getFichas()[filaTableroFichas][columnaTableroFichas].getFichaColoreada(); 
+                            contenidoTablero[fila][columna] = this.getFichas()[filaTableroFichas][columnaTableroFichas].toString(); 
                         }
                         columnaTableroFichas ++;
                     }

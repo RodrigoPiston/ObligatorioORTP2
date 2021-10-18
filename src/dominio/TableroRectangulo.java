@@ -6,11 +6,11 @@ package dominio;
  */
 public class TableroRectangulo extends Tablero {
 
-    private static int ancho = 20;
-    private static int largo = 20;
+    private static int Ancho = 20;
+    private static int Largo = 20;
     
     public TableroRectangulo() {
-        super(ancho, largo);
+        super(Ancho, Largo);
         this.generarFichasPredeterminadas();
     }
 
@@ -33,7 +33,7 @@ public class TableroRectangulo extends Tablero {
 
         for (int fila = 0; fila < this.getFichas().length ; fila++) {
             for (int columna = 0; columna < this.getFichas()[0].length ; columna++) {
-                contenidoTablero[fila + 2][columna + 1] = getFichas()[fila][columna].getFichaColoreada(); 
+                contenidoTablero[fila + 2][columna + 1] = getFichas()[fila][columna].toString(); 
                 if(columna < 9){
                     contenidoTablero[0][columna+ 1] =  String.format("%d", ( columna + 1)) ;
                     contenidoTablero[1][columna + 1] =  "" ;

@@ -1,19 +1,16 @@
 package dominio;
 
 /**
- *
+ * Clase que contiene la la estructura para instanciar un nuevo tablero
  * @author  Rodrigo Pistón(261777) | Rodrigo Camps(241344)
  */
+
 public abstract class Tablero {
     private int ancho;
     private int largo;
     private String[][] contenido;
     private Ficha [][] fichas;
     
-    /*
-        En el anexo se encuentra las partes laterales del tablero, como los puntos y número de columna
-    */
-
     public Tablero(int largo, int ancho) {
         this.largo = largo;
         this.ancho = ancho;

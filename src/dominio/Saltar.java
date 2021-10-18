@@ -38,26 +38,27 @@ public class Saltar extends Juego{
         return siguienteColumnaRecomendada;
     }
 
-    public void setSiguienteColumnaRecomendada(int siguienteColumnaRecomendada) {
+    private void setSiguienteColumnaRecomendada(int siguienteColumnaRecomendada) {
         this.siguienteColumnaRecomendada = siguienteColumnaRecomendada;
     }
 
-    public ArrayList<Ficha> getListaFichas() {
+    private ArrayList<Ficha> getListaFichas() {
         return listaFichas;
     }
    
-    public void setListaFichas(ArrayList<Ficha> listaFichas) {
+    private void setListaFichas(ArrayList<Ficha> listaFichas) {
         this.listaFichas = listaFichas;
     }
-    public void addListaFichas(Ficha ficha) {
+    
+    private void addListaFichas(Ficha ficha) {
         this.listaFichas.add(ficha);
     }
 
-    public Iterator<Ficha> getIteradorFichas() {
+    private Iterator<Ficha> getIteradorFichas() {
         return iteradorFichas;
     }
     
-    public void resetIteradorFichas(Iterator<Ficha> iteradorFichas) {
+    private void resetIteradorFichas(Iterator<Ficha> iteradorFichas) {
         this.iteradorFichas = this.getListaFichas().iterator();
     }
     
@@ -145,7 +146,7 @@ public class Saltar extends Juego{
                     filaDestino = fila - cantidadSaltos;
                     if(filaDestino > 0 && matrizFichas[filaDestino][columna].equals(utilidad.Generico.FichaVacia) ){
                         for (int columnaDestino = 0; columnaDestino < matrizFichas[0].length && fichaValida; columnaDestino++) {
-                            if(matrizFichas[filaDestino][columnaDestino].getFichaColoreada().equals(ficha.getFichaColoreada())){
+                            if(matrizFichas[filaDestino][columnaDestino].toString().equals(ficha.toString())){
                                 fichaValida = false;
                             }
                         }
@@ -163,7 +164,7 @@ public class Saltar extends Juego{
         return columnaRecomendada;
     }
     
-    public boolean comprobarFichasAreaBase(){
+    private boolean comprobarFichasAreaBase(){
         int contador = 0;
         for (int fila = 5; fila < this.getTablero().getFichas().length; fila++) {
             for (int columna = 0; columna < this.getTablero().getFichas()[0].length; columna++) {

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 
 /**
- *
+ *  Clase que contiene la la estructura para instanciar un Juego nuevo
  * @author  Rodrigo Pistón(261777) | Rodrigo Camps(241344)
  */
 public abstract class Juego {
@@ -13,6 +13,10 @@ public abstract class Juego {
     private Tablero tablero;
     private boolean movimientosDisponibles;
     
+    /**
+     *  Establece la distribución de las fichas del tablero del juego. 
+     * @param configuracionPrecargada
+     */
     public Juego(boolean configuracionPrecargada) {
         this.setConfiguracionPrecargada(configuracionPrecargada);
     }

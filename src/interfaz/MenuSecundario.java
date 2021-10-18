@@ -169,7 +169,6 @@ public class MenuSecundario {
         boolean terminaJuego = false;
 
         // -- Se establece la primera ficha
-        juegoSaltar.setFichaActual(listaFichas[0]);
         juegoSaltar.iniciar();
 
         // -- Se itera hasta que se presione X
@@ -178,7 +177,7 @@ public class MenuSecundario {
             // -- Se imprime el tablero a pantalla
             System.out.println(juegoSaltar.getTablero().getContenidoString());
             // -- Se indica que ficha va a ser la siguiente en mover
-            System.out.printf("\nSiguiente color de ficha a mover: %s \n", juegoSaltar.getFichaActual().getFichaColoreada());
+            System.out.printf("\nSiguiente color de ficha a mover: %s \n", juegoSaltar.getFichaActual().toString());
             // -- Se lee la entrada del usuario
             entrada = utilidad.Entrada.leerString("columna, [A] para ayuda o [X] para finalizar");
             System.out.println("____________________________________________________________________________");
@@ -198,7 +197,7 @@ public class MenuSecundario {
                     System.out.println("No quedan movimientos restantes.");
                     terminaJuego = true;
                 } else {
-                    System.out.printf("La ficha no tiene movimientos disponibles %s \n", juegoSaltar.getFichaActual().getFichaColoreada());
+                    System.out.printf("La ficha no tiene movimientos disponibles %s \n", juegoSaltar.getFichaActual().toString());
                 }
                 movimientosNoPermitidos++;
             } else if (!juegoSaltar.getMovimientosDisponibles()) {
@@ -225,8 +224,7 @@ public class MenuSecundario {
         while (!entrada.equals("X")) {
             System.out.format("+------------+-------------+------+---------+---------------------+%n");
             System.out.format("|                    Lista de Partidas                            |%n");
-            System.out.format("+------------+-------------+------+---------+---------------------+%n");
-
+            System.out.format("|                                                                 |%n");
             System.out.format("+------------+-------------+------+---------+---------------------+%n");
             System.out.format("| Juego      | Alias       | Edad | Puntaje | Fecha               |%n");
             System.out.format("+------------+-------------+------+---------+---------------------+%n");
