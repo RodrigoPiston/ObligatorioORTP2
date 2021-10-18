@@ -39,12 +39,11 @@ public class Saltar extends Juego{
             int cantidadSaltos = 0;
             int filaDestino = 0;
             for (int fila = tableroFichas.length -1; fila > 0 ; fila--) {
-
                 // -- Si se encuentra el color en la columna, se verifica cuantas veces hay que saltar
-                if(tableroFichas.equals(fichaActual)){
+                if(tableroFichas[fila][colSeleccionada].equals(fichaActual)){
                     filaOrigen = fila;
-                     for (int columna = 0; columna < tableroFichas[0].length; columna++) {
-                        if(!tableroFichas.equals(fichaVacia)){
+                    for (int columna = 0; columna < tableroFichas[0].length; columna++) {
+                        if(!tableroFichas[fila][columna].equals(fichaVacia)){
                             cantidadSaltos ++;
                         }                    
                     }

@@ -59,17 +59,15 @@ public class Generico {
         return textoColor + COLORES[0];
     }
     
-    public static boolean EsNumeral(int codigo){
-        return caracteresColores[codigo].contains("#");
-    }
-    
-    public static void CopiarMatriz(int[][] original, int[][] copia){
+       
+    public static void CopiarMatriz(Object original, Object copia){
          for (int fila = 1; fila < original.length; fila++) {
             for (int columna = 0; columna < original[0].length; columna++) {
                 copia[fila][columna] = original[fila][columna];
             }
         }
     }
-    
-    
+    public static boolean EsNumeral(int codigo){
+        return caracteresColores[codigo].contains("#");
+    }    
 }

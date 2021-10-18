@@ -12,110 +12,37 @@ import utilidad.Generico;
  */
 public class Rectangulo extends Juego {
 
-    /// -- Array de 20 posiciones, que contiene array con las fichas predeterminadas colocadas
-    private int [][] posicionesPredeterminadas = {{3},{0},{3},{5},{0},{16},{0},
-        {0},{10,11},{0},{0},{10,20},{18},{17},
-        {6,11,20},{17},{5},{4,11},{3,14},{15}}; 
-    
-    private int [][] tableroFichas = new int [20][20];
-    private String [][] tablero = new String[22][21];
+ //   private int [][] tableroFichas = new int [20][20];
+  //  private String [][] tablero = new String[22][21];
 
     public Rectangulo(boolean configuracionPredeterminada) {
         super(configuracionPredeterminada);
     }
 
-    public int[][] getTableroFichas() {
-        return tableroFichas;
-    }
-
-    public void setTableroFichas(int[][] tablero) {
-        this.tableroFichas = tablero;
-    }
-
-
-    public int[][] getPosicionesPredeterminadas() {
-        return posicionesPredeterminadas;
-    }
-    
     public void iniciar(){
         if(!this.getConfiguracionPredeterminada()){
-            this.generarFichasAlAzar();
-        }else{
-            this.generarFichasPredeterminadas();
+            this.getTablero().generarFichasAlAzar();
         }
-        this.generarTablero();
+        recargar();
     }
     
     public void recargar(){
-         this.generarTablero();
-    }
-    
-    private void generarFichasAlAzar(){
-        for (int fila = 0; fila < this.getTableroFichas().length; fila++) {
-            for (int columna = 0; columna < this.getTableroFichas()[fila].length; columna++) {
-                if(utilidad.Entrada.getRandom(0,20) == 0){
-                    this.getTableroFichas()[fila][columna] = 6;
-                }else{
-                    this.getTableroFichas()[fila][columna] = 5;
-                }
-            }
-        }
-    }
-    
-    private void generarFichasPredeterminadas(){
-        for (int fila = 0; fila < this.getTableroFichas().length; fila++) {
-            for (int columna = 0; columna < this.getTableroFichas()[0].length; columna++) {
-                if(posicionPredeterminada(fila,columna)){
-                    this.getTableroFichas()[fila][columna] = 6;
-                }else{
-                    this.getTableroFichas()[fila][columna] = 5;
-                }
-            }
-        }
-    }
-    
-    private void generarTablero() {
-        // -- Se arma los espacios sin utilizar
-       /* this.getTablero()[0][0] = "  ";
-        this.getTablero()[1][0] = "           ";
-
-        for (int fila = 0; fila < this.getTableroFichas().length ; fila++) {
-            for (int columna = 0; columna < this.getTableroFichas()[0].length ; columna++) {
-                this.getTablero()[fila + 2][columna + 1] = utilidad.Generico.RetornarColor(this.getTableroFichas()[fila][columna]); 
-                if(columna < 9){
-                    this.getTablero()[0][columna+ 1] =  String.format("%d", ( columna + 1)) ;
-                    this.getTablero()[1][columna + 1] =  "" ;
-                }else{
-                    this.getTablero()[0][columna +1] = Character.toString( String.format("%d", (columna + 1)).charAt(0)) ;
-                     this.getTablero()[1][columna +1] = Character.toString( String.format("%02d", (columna - 9)).charAt(1));
-                }
-            }
-            this.getTablero()[fila + 2][0] = String.format("%02d", (fila + 1));
-        }*/
+        this.getTablero().generarTablero();
     }
 
-    private boolean posicionPredeterminada(int fila, int columnaSeleccionada) {
-        boolean generar = false;
-        // --  Para no tratar con la posición 0
-        columnaSeleccionada += 1;
-        for (int columna = 0; columna < this.getPosicionesPredeterminadas()[fila].length && !generar; columna++) {
-            if(this.getPosicionesPredeterminadas()[fila][columna] == columnaSeleccionada){
-                generar = true;
-            }
-        }
-        return generar;
-    }
-
-    public boolean siguienteMovimiento(int colorActual,int coordenadaXInicial, int coordenadaYInicial, int rectanguloAlto, int rectanguloAncho, boolean primeraJugada) {
+    public boolean siguienteMovimiento(Ficha colorActual,int coordenadaXInicial, int coordenadaYInicial, int rectanguloAlto, int rectanguloAncho, boolean primeraJugada) {
         boolean movimientoPermitido = true;
         boolean encontroAdyacente = false;
+        Ficha fGuion = new Ficha(0,"-");
         // -- Si no se le resta 1 estaría desfasado en el array
         coordenadaXInicial -= 1;
         coordenadaYInicial -= 1;
         int coordenadaXFinal = (coordenadaXInicial + rectanguloAlto);
         int coordenadaYFinal = (coordenadaYInicial + rectanguloAncho);
-        int [][] tableroAuxiliar = new int [20][20];  
-        utilidad.Generico.CopiarMatriz(tableroFichas, tableroAuxiliar);
+        Ficha[][] tableroAuxiliar = new Ficha [this.getTablero().getAncho()][this.getTablero().getLargo()];  
+        
+        utilidad.Generico.CopiarMatriz(tableroAuxiliar, tableroAuxiliar);
+        
         System.out.printf("Color %d rectanguloPosicionX:%d rectanguloPosicionY:%d rectanguloAlto:%d rectanguloAncho:%d\n",colorActual,coordenadaXInicial,coordenadaYInicial, rectanguloAlto,rectanguloAncho,rectanguloAncho);
 
         // -- Si las coordenadas estan dentro del tamaño del tablero
@@ -124,7 +51,7 @@ public class Rectangulo extends Juego {
             for(int fila = coordenadaXInicial ; fila < coordenadaXFinal && movimientoPermitido; fila++) {
                 for (int columna = coordenadaYInicial; columna < coordenadaYFinal && movimientoPermitido; columna++) {
                     // -- Si es igual a un * o a un númeral se termina, porque estaría pisando un rectangulo
-                    if(tableroAuxiliar[fila][columna] == 6 || Generico.EsNumeral(tableroAuxiliar[fila][columna])){
+                    if(!tableroAuxiliar[fila][columna].equals(fGuion)){
                        movimientoPermitido = false;
                     }else{
                         tableroAuxiliar[fila][columna] = colorActual;
@@ -133,16 +60,16 @@ public class Rectangulo extends Juego {
                     // -- Se controlan los bordes exteriores, sin pasarse del límite del rectangulo,
                     //    Si esta en el límite || es un rectangulo de 1 de ancho || 1 de alto && no se sobrepasa del límite de la matríz && es númeral
                     // -- Borde Superior
-                    if((fila == coordenadaXInicial || rectanguloAncho == 1)   && (fila - 1) >= 0 && Generico.EsNumeral(tableroAuxiliar[fila -1][columna])){
+                    if((fila == coordenadaXInicial || rectanguloAncho == 1) && (fila - 1) >= 0 && tableroAuxiliar[fila -1][columna].esNumeral()){
                         encontroAdyacente = true;
                     // -- Borde Inferior
-                    }else if((fila == coordenadaXFinal || rectanguloAncho == 1) && (fila + 1) < tableroAuxiliar.length && Generico.EsNumeral(tableroAuxiliar[fila + 1][columna])){
+                    }else if((fila == coordenadaXFinal || rectanguloAncho == 1) && (fila + 1) < tableroAuxiliar.length && tableroAuxiliar[fila + 1][columna].esNumeral()){
                         encontroAdyacente = true;
                     // -- Borde Izquierdo
-                    }else if((columna == coordenadaYInicial || rectanguloAlto == 1) && (columna - 1) >= 0   && Generico.EsNumeral(tableroAuxiliar[fila][columna - 1])){
+                    }else if((columna == coordenadaYInicial || rectanguloAlto == 1) && (columna - 1) >= 0   && tableroAuxiliar[fila][columna - 1].esNumeral()){
                         encontroAdyacente = true;
                      // -- Borde Derecho
-                    }else if((columna == coordenadaYFinal  || rectanguloAlto == 1) && (columna + 1) < tableroAuxiliar[0].length && Generico.EsNumeral(tableroAuxiliar[fila][columna + 1]) ){
+                    }else if((columna == coordenadaYFinal  || rectanguloAlto == 1) && (columna + 1) < tableroAuxiliar[0].length && tableroAuxiliar[fila][columna + 1].esNumeral()){
                         encontroAdyacente = true;
                     }         
                 }
@@ -152,16 +79,16 @@ public class Rectangulo extends Juego {
         }
         movimientoPermitido = movimientoPermitido && (encontroAdyacente || primeraJugada);
         if(movimientoPermitido){
-            utilidad.Generico.CopiarMatriz(tableroAuxiliar, this.getTableroFichas());
+            utilidad.Generico.CopiarMatriz(tableroAuxiliar, this.getTablero().getFichas());
         }
         return movimientoPermitido;
     }
     
     public int calcularPuntaje(){
         int puntaje = 0;
-        for (int fila = 0; fila < tableroFichas.length; fila++) {
-            for (int columna = 0; columna < tableroFichas[0].length; columna++) {
-                if(Generico.EsNumeral(tableroFichas[fila][columna])){
+        for (int fila = 0; fila < this.getTablero().getFichas().length; fila++) {
+            for (int columna = 0; columna < this.getTablero().getFichas()[0].length; columna++) {
+                if(this.getTablero().getFichas()[fila][columna].esNumeral()){
                     puntaje ++ ;
                 }
             }
@@ -171,9 +98,9 @@ public class Rectangulo extends Juego {
     
     public boolean quedanRectangulosDisponibles(){
         boolean disponible = false;
-        for (int fila = 0; fila < tableroFichas.length; fila++) {
-            for (int columna = 0; columna < tableroFichas[0].length && !disponible ; columna++) {
-                disponible = this.getTableroFichas()[fila][columna] == 5;
+        for (int fila = 0; fila < this.getTablero().getFichas().length; fila++) {
+            for (int columna = 0; columna < this.getTablero().getFichas()[0].length && !disponible ; columna++) {
+                disponible = this.getTablero().getFichas()[fila][columna].esNumeral();
             }
         }
         return disponible;

@@ -14,6 +14,7 @@ public abstract class Tablero {
     private int largo;
     private String[][] contenido;
     private Ficha [][] fichas;
+    
     /*
         En el anexo se encuentra las partes laterales del tablero, como los puntos y número de columna
     */
@@ -46,8 +47,8 @@ public abstract class Tablero {
         return largo;
     }
     
-    public void agregarFicha(Ficha ficha,int x,int y) {
-        this.fichas[x][y] = ficha;
+    public void agregarFicha(Ficha ficha,int fila,int columna) {
+        this.fichas[fila][columna] = ficha;
     }
     
     public String getContenidoString() {

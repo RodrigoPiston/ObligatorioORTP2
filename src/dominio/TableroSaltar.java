@@ -10,20 +10,18 @@ package dominio;
  * @author heido
  */
 public class TableroSaltar extends Tablero{
-    static String [][] anexos = {{"60","40","30","20","10"},{},{""},{"1","2","3","4"}};
-    
+    private static String [][] anexos = {{"60","40","30","20","10"},{},{""},{"1","2","3","4"}};
     private static int ancho = 11;
-    private static int largo = 14;
+    private static int largo = 4;
 
     public TableroSaltar() {
         super(ancho, largo,anexos);
         this.generarFichasPredeterminadas();
-        this.generarFichasAlAzar();
     }
 
     @Override
     public void generarTablero() {
-        String [][] contenidoTablero = new String[(super.getLargo() * 2) + 1][(super.getAncho()* 2) + 1];
+        String [][] contenidoTablero = new String[(super.getLargo() * 2) + 2][(super.getAncho()* 2) + 2];
         int puntuacion = 60;        
         int posicion = 1;
         int filaTableroFichas = 0;
@@ -57,7 +55,9 @@ public class TableroSaltar extends Tablero{
                     if(!columnaPar){
                         contenidoTablero[fila][columna] = "|"; 
                     }else{
-                        contenidoTablero[fila][columna] = this.getFichas()[filaTableroFichas][columnaTableroFichas].getFichaColoreada(); 
+                        if(this.getFichas()[filaTableroFichas][columnaTableroFichas]!= null){
+                            contenidoTablero[fila][columna] = this.getFichas()[filaTableroFichas][columnaTableroFichas].getFichaColoreada(); 
+                        }
                         columnaTableroFichas ++;
                     }
                 }
@@ -79,15 +79,22 @@ public class TableroSaltar extends Tablero{
     public void generarFichasAlAzar() {
         // -- Valores entre el 1 y el 4
         int offset = (int) (Math.random()*(4-0)) + 1;
+        Ficha ficha;
         /// -- Una mejor forma es revisar la posición de la columna anterior, si coincide, no se pone,y se pone en la siguiente. 
         for (int fila = 0; fila < super.getFichas().length ; fila++) {
             for (int columna = 0; columna < super.getFichas()[0].length ; columna++) {
-                int valorActual = super.getFichas()[fila][columna].getIdColor() + offset;
-                if(valorActual > 4){
-                    int diferencia = (valorActual - 4);
-                    super.getFichas()[fila][columna].setIdColor(diferencia);
-                }else{
-                    super.getFichas()[fila][columna].setIdColor(valorActual);
+                ficha = super.getFichas()[fila][columna];
+                
+                if(!ficha.equals(new Ficha(0," "))){
+                    int valorActual = ficha.getIdColor() + offset;
+                    if(valorActual > 4){
+                        int diferencia = (valorActual - 4);
+                        ficha.setIdColor(diferencia);
+                    }else{
+                        ficha.setIdColor(valorActual);
+                    }
+                    
+                    super.agregarFicha(ficha, fila, columna);
                 }
             }
         }
@@ -99,12 +106,17 @@ public class TableroSaltar extends Tablero{
         Ficha fAzul = new Ficha(2,"#");
         Ficha fVerde = new Ficha(3,"#");
         Ficha fAma = new Ficha(4,"#");
+        Ficha fVacia = new Ficha(0," ");
 
         Ficha [][] listaFichas = {{fRoja,fAzul,fVerde,fAma},{fAzul,fRoja,fAma,fVerde},{fVerde,fAma,fAzul,fRoja},{fAma,fVerde,fRoja,fAzul}};
         
-        for (int fila = 7; fila < this.getFichas().length; fila++) {
+        for (int fila = 0; fila < this.getFichas().length; fila++) {
             for (int columna = 0; columna < this.getFichas()[0].length; columna++) {
-                this.agregarFicha(listaFichas[fila - 7][columna], fila, columna);
+                if(fila > 6){
+                    this.agregarFicha(listaFichas[fila - 7][columna], fila, columna);
+                }else{
+                    this.agregarFicha(fVacia, fila, columna);
+                }
             }
         }
     }

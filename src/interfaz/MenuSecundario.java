@@ -92,6 +92,9 @@ public class MenuSecundario {
         instanciaRectangulo.iniciar();
         String [] arrayEntrada = {"","","",""};        
         String entrada = "";
+        Ficha[] listaFichas = {new Ficha(1,"#"),new Ficha(2,"#"),new Ficha(3,"#"),new Ficha(4,"#")};
+        Ficha ficha;
+        int contListaFichas = 0;
         int color = 1;
         int rectanguloPosicionX = 0;
         int rectanguloPosicionY = 0;
@@ -101,13 +104,8 @@ public class MenuSecundario {
         boolean primeraJugada = true;
         boolean terminaJuego = false;
         while(terminaJuego){
-            /*for (int i = 0; i < instanciaRectangulo.getTablero().length; i++) {
-                System.out.println("");
-
-                for (int j = 0; j < instanciaRectangulo.getTablero()[0].length; j++) {
-                    System.out.print(instanciaRectangulo.getTablero()[i][j]+ " ");
-                }
-            }*/
+            ficha = listaFichas[contListaFichas];
+            System.out.println(instanciaRectangulo.getTablero().getContenidoString());
             System.out.println("\n");
             // -- Se lee la entrada con una función utilitaria
             entrada = utilidad.Entrada.leerString("los siguientes valores [Posición X] [Posición Y] [Alto] [Ancho]\nen una sola línea númerica o presiones X para finalizar:");
@@ -124,7 +122,7 @@ public class MenuSecundario {
                     rectanguloPosicionY = Integer.parseInt(arrayEntrada[1]); 
                     rectanguloAlto = Integer.parseInt(arrayEntrada[2]); 
                     rectanguloAncho = Integer.parseInt(arrayEntrada[3]);
-                    if(!instanciaRectangulo.siguienteMovimiento(color,rectanguloPosicionX,rectanguloPosicionY,rectanguloAlto,rectanguloAncho,primeraJugada)){
+                    if(!instanciaRectangulo.siguienteMovimiento(ficha,rectanguloPosicionX,rectanguloPosicionY,rectanguloAlto,rectanguloAncho,primeraJugada)){
                         System.out.println("Error: Movimiento invalido.");
                     }else{
                         cantidadRectangulos ++;
@@ -132,10 +130,10 @@ public class MenuSecundario {
                     };
                     
                     // -- Solo se cambia de color cuando es correcta la entrada
-                    if(color == 4){
-                        color = 1;
+                    if(contListaFichas == 3){
+                        contListaFichas = 1;
                     }else{
-                        color ++;
+                        contListaFichas ++;
                     }
                 }else if(!arrayEntrada[0].equals("X"))
                 {
@@ -189,7 +187,7 @@ public class MenuSecundario {
                 System.out.println("Debe de ingresar una columna para realizar la siguiente jugada o X para finalizar");
             }
             
-            if(contListaFichas == 4){
+            if(contListaFichas == 3){
                 contListaFichas = 1;
             }else{
                 contListaFichas ++;

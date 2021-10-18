@@ -25,7 +25,7 @@ public class Ficha {
     }
 
     public String getFichaColoreada() {
-        return color + texto;
+        return color + texto + "\u001B[0m";
     }
 
     public int getIdColor() {
@@ -38,10 +38,14 @@ public class Ficha {
     
     @Override
     public boolean equals(Object obj) {
-        return this.getNombre().equalsIgnoreCase(((Ficha) obj).getNombre());
+        return this.getNombre().equalsIgnoreCase(((Ficha) obj).getNombre()) && this.getIdColor() == ((Ficha) obj).getIdColor();
     }
 
     private void asignaColor() {
         this.color = utilidad.Generico.COLORES[idColor];
+    }
+    
+    public boolean esNumeral() {
+        return this.texto.equals("#");
     }
 }
