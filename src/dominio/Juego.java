@@ -1,5 +1,3 @@
-/*
- */
 package dominio;
 
 import java.time.LocalDateTime;
@@ -7,7 +5,7 @@ import java.time.LocalDateTime;
 
 /**
  *
- * @author Rodrigo Pistón
+ * @author  Rodrigo Pistón(261777) | Rodrigo Camps(241344)
  */
 public abstract class Juego {
     private boolean configuracionPrecargada;
@@ -45,6 +43,5 @@ public abstract class Juego {
     
     public abstract void iniciar();
     public abstract void recargar();    
-    public abstract boolean siguienteMovimiento(Ficha fichaActual,int colSeleccionada);
     public abstract int calcularPuntaje();    
 }

@@ -1,14 +1,8 @@
-/*
- */
 package dominio;
-
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import utilidad.Generico;
 
 /**
  *
- * @author Rodrigo Pistón
+ * @author  Rodrigo Pistón(261777) | Rodrigo Camps(241344)
  */
 public class Rectangulo extends Juego {
 
@@ -101,11 +95,4 @@ public class Rectangulo extends Juego {
         }
         return disponible;
     }
-
-    @Override
-    public boolean siguienteMovimiento(Ficha fichaActual, int colSeleccionada) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-
 }

@@ -4,7 +4,7 @@ package dominio;
 
 /**
  *
- * @author Rodrigo Pistón
+ * @author  Rodrigo Pistón(261777) | Rodrigo Camps(241344)
  */
 public class Jugador {
     private String nombre;

@@ -1,6 +1,3 @@
-/*
- 
- */
 package dominio;
 
 import java.util.ArrayList;
@@ -8,7 +5,7 @@ import java.util.Collections;
 
 /**
  *
- * @author Rodrigo Pistón
+ * @author  Rodrigo Pistón(261777) | Rodrigo Camps(241344)
  */
 public class Sistema {
     private ArrayList<Jugador> listaJugadores;

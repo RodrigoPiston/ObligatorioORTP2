@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dominio;
 
 /**
  *
- * @author heido
+ * @author  Rodrigo Pistón(261777) | Rodrigo Camps(241344)
  */
 public class TableroRectangulo extends Tablero {
 
@@ -96,6 +91,4 @@ public class TableroRectangulo extends Tablero {
         }
         return generar;
     }
-
-    
 }

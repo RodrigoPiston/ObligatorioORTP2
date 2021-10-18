@@ -7,10 +7,9 @@ package utilidad;
 
 import dominio.Ficha;
 
-
 /**
  *
- * @author heido
+ * @author  Rodrigo Pistón(261777) | Rodrigo Camps(241344)
  */
 public class Generico {
     // -- 0:RESET - 1:ROJO - 2:AZUL - 3:VERDE - 4:AMARILLO

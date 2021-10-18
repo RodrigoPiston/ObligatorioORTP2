@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author heido
+ * @author  Rodrigo Pistón(261777) | Rodrigo Camps(241344)
  */
 public class Entrada {
     

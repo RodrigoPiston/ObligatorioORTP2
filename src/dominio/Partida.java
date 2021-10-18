@@ -1,5 +1,3 @@
-/*
- */
 package dominio;
 
 import java.time.LocalDateTime;
@@ -7,7 +5,7 @@ import java.util.Comparator;
 
 /**
  *
- * @author Rodrigo Pistón
+ * @author  Rodrigo Pistón(261777) | Rodrigo Camps(241344)
  */
 public class Partida{
     

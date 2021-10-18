@@ -1,11 +1,9 @@
-/*
- */
 package dominio;
 import java.time.LocalDateTime; 
 
 /**
  *
- * @author Rodrigo Pistón
+ * @author  Rodrigo Pistón(261777) | Rodrigo Camps(241344)
  */
 public class Saltar extends Juego{
 
