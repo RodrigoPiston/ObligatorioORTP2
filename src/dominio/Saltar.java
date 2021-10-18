@@ -69,18 +69,26 @@ public class Saltar extends Juego{
         int columnaRecomendada = -1;
         int cantidadSaltos;
         int filaDestino;
-        for (int fila = 4; fila < matrizFichas.length && columnaRecomendada == -1; fila++) {
-            for (int columna = 0; columna < matrizFichas[0].length && columnaRecomendada == -1; columna++) {
+        boolean valido = true;
+        for (int fila = 5; fila < matrizFichas.length && valido; fila++) {
+            for (int columna = 0; columna < matrizFichas[0].length && valido; columna++) {
                 cantidadSaltos = 0;
                 if(matrizFichas[fila][columna].equals(ficha)){
-                    for (int columnaFicha = 0; columnaFicha < matrizFichas[fila].length && columnaRecomendada == -1; columnaFicha++) {
+                    for (int columnaFicha = 0; columnaFicha < matrizFichas[fila].length; columnaFicha++) {
                         if(!matrizFichas[fila][columna].equals(utilidad.Generico.fichaVacia)){
                             cantidadSaltos ++;
                         }
                     }
                     filaDestino = fila - cantidadSaltos;
                     if(filaDestino > 0 && matrizFichas[filaDestino][columna].equals(utilidad.Generico.fichaVacia) ){
-                        columnaRecomendada = columna;
+                        for (int columnaDeFilaDestino = 0; columnaDeFilaDestino < matrizFichas[filaDestino].length && columnaRecomendada == -1; columnaDeFilaDestino++) {
+                            if(matrizFichas[filaDestino][columnaDeFilaDestino].equals(ficha)){
+                                valido = false;
+                            }
+                        }
+                        if(valido){
+                            columnaRecomendada = columna;
+                        }
                     }
                 }
             }

@@ -13,10 +13,10 @@ import dominio.Ficha;
  * @author heido
  */
 public class Generico {
-    
-    public static Ficha fichaVacia = new Ficha(0," ");
     // -- 0:RESET - 1:ROJO - 2:AZUL - 3:VERDE - 4:AMARILLO
     public static String [] COLORES = {"\u001B[0m","\u001B[31m","\u001B[34m","\u001B[32m","\u001B[33m"};
+
+    public static Ficha fichaVacia = new Ficha(0," ");
 
       // 0:RESET | 1:[#] ROJO | 2: [#] AZUL | 3: [#] VERDE | 4: [#] AMARILLO | 5: [-] Sin color | 6: [*] Sin Color
     public static String [] caracteresColores = {

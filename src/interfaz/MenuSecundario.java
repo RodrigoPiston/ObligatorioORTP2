@@ -218,13 +218,12 @@ public class MenuSecundario {
             }
           
             juegoSaltar.recargar();
-            System.out.printf("\nPuntaje: %d",puntaje);
 
             if(entrada.equals("X") || entrada.equals("x")){
                 terminaJuego = true;
-                System.out.println("Fin del juego!");
             }
         }
+        System.out.println("Fin del juego!");
         return juegoSaltar;
     }
     
