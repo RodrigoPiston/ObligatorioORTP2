@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * @author  Rodrigo Pistón(261777) | Rodrigo Camps(241344)
  */
 public abstract class Juego {
-    private boolean configuracionPrecargada;
+    private boolean configuracionPredeterminada;
     private int puntaje;
     private Tablero tablero;
     private boolean movimientosDisponibles;
@@ -18,7 +18,7 @@ public abstract class Juego {
      * @param configuracionPrecargada
      */
     public Juego(boolean configuracionPrecargada) {
-        this.setConfiguracionPrecargada(configuracionPrecargada);
+        this.setConfiguracionPredeterminada(configuracionPrecargada);
     }
 
     public int getPuntaje() {
@@ -30,15 +30,15 @@ public abstract class Juego {
     }
     
     public boolean getConfiguracionPredeterminada() {
-        return this.configuracionPrecargada;
+        return this.configuracionPredeterminada;
     }
 
     public void setPuntaje(int puntaje) {
         this.puntaje = puntaje;
     }
     
-    public void setConfiguracionPrecargada(boolean configuracionPrecargada) {
-        this.configuracionPrecargada = configuracionPrecargada;
+    public void setConfiguracionPredeterminada(boolean configuracionPrecargada) {
+        this.configuracionPredeterminada = configuracionPrecargada;
     }
 
     public void setTablero(Tablero tablero) {
