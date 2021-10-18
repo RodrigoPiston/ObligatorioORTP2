@@ -51,18 +51,18 @@ public class Rectangulo extends Juego {
                     // -- Se controlan los bordes exteriores, sin pasarse del límite del rectangulo,
                     //    Si esta en el límite || es un rectangulo de 1 de ancho || 1 de alto && no se sobrepasa del límite de la matríz && es númeral
                     // -- Borde Superior
-                    if((fila == coordenadaXInicial || rectanguloAncho == 1) && (fila - 1) >= 0 && tableroAuxiliar[fila -1][columna].esNumeral()){
+                    if((fila == coordenadaXInicial || rectanguloAncho == 1) && (fila - 1) >= 0 && tableroAuxiliar[coordenadaXInicial -1][columna].esNumeral()){
                         encontroAdyacente = true;
                     // -- Borde Inferior
                     }else if((fila == coordenadaXFinal || rectanguloAncho == 1) && (fila + 1) < tableroAuxiliar.length && tableroAuxiliar[fila + 1][columna].esNumeral()){
                         encontroAdyacente = true;
-                    // -- Borde Izquierdo
-                    }else if((columna == coordenadaYInicial || rectanguloAlto == 1) && (columna - 1) >= 0   && tableroAuxiliar[fila][columna - 1].esNumeral()){
-                        encontroAdyacente = true;
-                     // -- Borde Derecho
+                    // -- Borde Derecho
                     }else if((columna == coordenadaYFinal  || rectanguloAlto == 1) && (columna + 1) < tableroAuxiliar[0].length && tableroAuxiliar[fila][columna + 1].esNumeral()){
                         encontroAdyacente = true;
-                    }         
+                      // -- Borde Izquierdo
+                    }else if((columna == coordenadaYInicial || rectanguloAlto == 1) && (columna - 1) >= 0   && tableroAuxiliar[fila][coordenadaYInicial - 1].esNumeral()){
+                        encontroAdyacente = true;
+                    }       
                 }
             }
         }else{

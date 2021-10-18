@@ -44,7 +44,7 @@ public class MenuSecundario {
         System.out.println("Seleccione un jugador:");
         List < Jugador > listaJugadores = MenuPrincipal.Sistema.getListaJugadores();
         for (int posicion = 0; posicion < listaJugadores.size(); posicion++) {
-            System.out.printf("[%d] %s\n", (posicion + 1), listaJugadores.get(posicion).getNombre());
+            System.out.printf("[%d] %s\n", (posicion + 1), listaJugadores.get(posicion).getAlias());
         }
 
         int posicionSeleccioanda = Entrada.leerInt("jugador", 0, listaJugadores.size() + 1);
