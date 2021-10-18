@@ -5,6 +5,7 @@
  */
 package interfaz;
 
+import dominio.Ficha;
 import utilidad.Entrada;
 import dominio.Juego;
 import dominio.Jugador;
@@ -100,13 +101,13 @@ public class MenuSecundario {
         boolean primeraJugada = true;
         boolean terminaJuego = false;
         while(terminaJuego){
-            for (int i = 0; i < instanciaRectangulo.getTablero().length; i++) {
+            /*for (int i = 0; i < instanciaRectangulo.getTablero().length; i++) {
                 System.out.println("");
 
                 for (int j = 0; j < instanciaRectangulo.getTablero()[0].length; j++) {
                     System.out.print(instanciaRectangulo.getTablero()[i][j]+ " ");
                 }
-            }
+            }*/
             System.out.println("\n");
             // -- Se lee la entrada con una función utilitaria
             entrada = utilidad.Entrada.leerString("los siguientes valores [Posición X] [Posición Y] [Alto] [Ancho]\nen una sola línea númerica o presiones X para finalizar:");
@@ -146,7 +147,7 @@ public class MenuSecundario {
             }
             instanciaRectangulo.recargar();
             System.out.printf("El puntaje es: %d \n",instanciaRectangulo.calcularPuntaje());
-            if(!arrayEntrada[0].equals("X") && !arrayEntrada[0].equals("x") && cantidadRectangulos <= 10 && instanciaRectangulo.quedanRectangulosDisponibles()){
+            if(arrayEntrada[0].equals("X") || arrayEntrada[0].equals("x") || cantidadRectangulos <= 10 || instanciaRectangulo.quedanRectangulosDisponibles()){
                 terminaJuego = true;
                 System.out.println("Fin del juego!");
             }
@@ -155,48 +156,49 @@ public class MenuSecundario {
     }
 
     private static Saltar jugarSaltar(){
+        String entrada = "";
+        Ficha[] listaFichas = {new Ficha(1,"#"),new Ficha(2,"#"),new Ficha(3,"#"),new Ficha(4,"#")};
+        int contListaFichas = 0;
+        int puntaje = 0;
+        int columnaIngresada = 0;
+        boolean terminaJuego = false;
+        Ficha ficha;
         Saltar instanciaSaltar = new Saltar(SeleccionarConfiguracion());
         instanciaSaltar.iniciar();
-        String entrada = "";
-        int color = 1;
-        int puntaje = 0;
+        
         // -- Se itera hasta que se presione X
-        while(!entrada.equals("X") && !entrada.equals("x")){
+        while(!terminaJuego){
+            ficha = listaFichas[contListaFichas];
+
             // -- Se muestra puntaje en pantalla
             System.out.printf("\nPuntaje: %d",puntaje);
             
-            // -- Se imprime el tablero en pantalla
-            for (int i = 0; i < instanciaSaltar.getTablero().length; i++) {
-                System.out.print("\n\t\t");
-                for (int j = 0; j < instanciaSaltar.getTablero()[0].length; j++) {
-                    System.out.print(instanciaSaltar.getTablero()[i][j]);
-                }
-            }
+            System.out.println(instanciaSaltar.getTablero().getContenidoString());
             // -- Se indica que ficha va a ser la siguiente en mover
-            System.out.printf("\nSiguiente color de ficha a mover: %s \n",utilidad.Generico.ResolverTextoColor(color));
+            System.out.printf("\nSiguiente color de ficha a mover: %s \n",ficha.getFichaColoreada());
             // -- Se lee la entrada del usuario
             entrada = utilidad.Entrada.leerString("columna o X para finalizar");
-            int columnaIngresada = 0;
             System.out.println("\n\n\n\n\n\n");
             
             if(esNumero(entrada)){
                 columnaIngresada = Integer.parseInt(entrada) - 1;
-                
-                if(!instanciaSaltar.siguienteMovimiento(color,columnaIngresada)){
+                if(!instanciaSaltar.siguienteMovimiento(ficha,columnaIngresada)){
                     System.out.println("Error: Movimiento invalido.");
                 };
-                
             }else if(!entrada.equals("X") && !entrada.equals("x")){
                 System.out.println("Debe de ingresar una columna para realizar la siguiente jugada o X para finalizar");
             }
             
-            if(color == 4){
-                color = 1;
+            if(contListaFichas == 4){
+                contListaFichas = 1;
             }else{
-                color ++;
+                contListaFichas ++;
             }
             instanciaSaltar.recargar();
-            puntaje = instanciaSaltar.calcularPuntaje();
+            if(entrada.equals("X") || entrada.equals("x")){
+                terminaJuego = true;
+                System.out.println("Fin del juego!");
+            }
         }
         return instanciaSaltar;
     }

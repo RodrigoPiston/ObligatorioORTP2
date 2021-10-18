@@ -18,7 +18,6 @@ public class Rectangulo extends Juego {
         {6,11,20},{17},{5},{4,11},{3,14},{15}}; 
     
     private int [][] tableroFichas = new int [20][20];
-    //private String [][] tablero = new String[22][21];
     private String [][] tablero = new String[22][21];
 
     public Rectangulo(boolean configuracionPredeterminada) {
@@ -32,10 +31,7 @@ public class Rectangulo extends Juego {
     public void setTableroFichas(int[][] tablero) {
         this.tableroFichas = tablero;
     }
-    
-    public String[][] getTablero() {
-        return tablero;
-    }
+
 
     public int[][] getPosicionesPredeterminadas() {
         return posicionesPredeterminadas;
@@ -80,7 +76,7 @@ public class Rectangulo extends Juego {
     
     private void generarTablero() {
         // -- Se arma los espacios sin utilizar
-        this.getTablero()[0][0] = "  ";
+       /* this.getTablero()[0][0] = "  ";
         this.getTablero()[1][0] = "           ";
 
         for (int fila = 0; fila < this.getTableroFichas().length ; fila++) {
@@ -95,7 +91,7 @@ public class Rectangulo extends Juego {
                 }
             }
             this.getTablero()[fila + 2][0] = String.format("%02d", (fila + 1));
-        }
+        }*/
     }
 
     private boolean posicionPredeterminada(int fila, int columnaSeleccionada) {
@@ -184,7 +180,9 @@ public class Rectangulo extends Juego {
     }
 
     @Override
-    public boolean siguienteMovimiento(int colorSeleccionado, int colSeleccionada) {
+    public boolean siguienteMovimiento(Ficha fichaActual, int colSeleccionada) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+
 }

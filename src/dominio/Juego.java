@@ -12,7 +12,9 @@ import java.time.LocalDateTime;
 public abstract class Juego {
     private boolean configuracionPrecargada;
     private int puntaje;
-
+    private Tablero tablero;
+    private String[][] anexos;
+    
     public Juego(boolean configuracionPrecargada) {
         this.setConfiguracionPrecargada(configuracionPrecargada);
     }
@@ -21,6 +23,14 @@ public abstract class Juego {
         return this.puntaje;
     }
     
+    public Tablero getTablero() {
+        return tablero;
+    }
+    
+    public boolean getConfiguracionPredeterminada() {
+        return this.configuracionPrecargada;
+    }
+
     public void setPuntaje(int puntaje) {
         this.puntaje = puntaje;
     }
@@ -28,15 +38,13 @@ public abstract class Juego {
     public void setConfiguracionPrecargada(boolean configuracionPrecargada) {
         this.configuracionPrecargada = configuracionPrecargada;
     }
-    
-    public boolean getConfiguracionPredeterminada() {
-        return this.configuracionPrecargada;
-    }
 
+    public void setTablero(Tablero tablero) {
+        this.tablero = tablero;
+    }
+    
     public abstract void iniciar();
     public abstract void recargar();    
-    public abstract boolean siguienteMovimiento(int colorSeleccionado,int colSeleccionada);
+    public abstract boolean siguienteMovimiento(Ficha fichaActual,int colSeleccionada);
     public abstract int calcularPuntaje();    
-
-
 }

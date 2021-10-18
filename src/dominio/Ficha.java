@@ -10,30 +10,38 @@ package dominio;
  * @author heido
  */
 public class Ficha {
-    private int id;
-    private String nombre;
+    private int idColor;
+    private String texto;
     private String color;
 
     public Ficha(int id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
+        this.idColor = id;
+        this.texto = nombre;
         this.asignaColor();
     }
 
     public String getNombre() {
-        return nombre;
+        return texto;
     }
 
     public String getFichaColoreada() {
-        return color + nombre;
+        return color + texto;
     }
 
+    public int getIdColor() {
+        return idColor;
+    }
+
+    public void setIdColor(int idColor) {
+        this.idColor = idColor;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         return this.getNombre().equalsIgnoreCase(((Ficha) obj).getNombre());
     }
 
     private void asignaColor() {
-        this.color = utilidad.Generico.COLORES[id];
+        this.color = utilidad.Generico.COLORES[idColor];
     }
 }

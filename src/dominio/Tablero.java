@@ -9,25 +9,51 @@ package dominio;
  *
  * @author heido
  */
-public class Tablero {
+public abstract class Tablero {
     private int ancho;
     private int largo;
     private String[][] contenido;
     private Ficha [][] fichas;
+    /*
+        En el anexo se encuentra las partes laterales del tablero, como los puntos y número de columna
+    */
+    private String [][] anexos = new String[4][1]; 
 
-    public Tablero(int largo, int ancho) {
+    public Tablero(int largo, int ancho,String[][] anexos) {
         this.largo = largo;
         this.ancho = ancho;
+        this.anexos = anexos;
+        this.fichas = new Ficha[largo][ancho];
     }
 
-    public String[][] getContenido() {
+    private String[][] getContenido() {
         return contenido;
     }
+
+    public String[][] getAnexos() {
+        return anexos;
+    }
     
-    public String getStringContenido() {
-        String contenido = "";
+    public Ficha[][] getFichas() {
+        return fichas;
+    }
+    
+    public int getAncho() {
+        return ancho;
+    }
+
+    public int getLargo() {
+        return largo;
+    }
+    
+    public void agregarFicha(Ficha ficha,int x,int y) {
+        this.fichas[x][y] = ficha;
+    }
+    
+    public String getContenidoString() {
+        String contenido = "\n";
         for (int fila = 0; fila < this.getContenido().length; fila++) {
-            contenido += String.join("\\s", this.getContenido()[fila]);
+            contenido += String.join(" ", this.getContenido()[fila]) + "\n";
         }
         return contenido;
     }
@@ -40,31 +66,22 @@ public class Tablero {
         this.contenido[x][y] = elemento;
     }
     
-    public Ficha[][] getFichas() {
-        return fichas;
-    }
-
     public void setFichas(Ficha[][] fichas) {
         this.fichas = fichas;
     }
-    
-    public void agregarFicha(Ficha ficha,int x,int y) {
-        this.fichas[x][y] = ficha;
-    }
-    
-    private void generarTablero(){
+  /*
+    public void generarTablero(){
+        int verdaderoLargo = ancho + this.getAnexos()[0].length;
         String [][] contenidoTablero = new String[ancho][largo];
-    }
-    
-    private void generarFichasAlAzarSaltar(){
-        for (int fila = 0; fila < this.getFichas().length; fila++) {
-            for (int columna = 0; columna < this.getFichas()[fila].length; columna++) {
-                if(utilidad.Entrada.getRandom(0,20) == 0){
-                    this.agregarFicha(new Ficha(6,"#"),fila,columna);
-                }else{
-                    this.agregarFicha(new Ficha(5,"-"),fila,columna);
-                }
+        for (int fila = 0; fila < this.getContenido().length; fila++) {
+            for (int columna = 0; columna < this.getContenido()[0].length; columna++) {
+                
             }
         }
-    }
+    }*/
+    
+    public abstract void generarTablero();
+    public abstract void generarFichasAlAzar();
+    public abstract void generarFichasPredeterminadas();
+
 }

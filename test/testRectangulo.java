@@ -14,7 +14,7 @@ import static utilidad.Entrada.esNumero;
  * @author heido
  */
 public class testRectangulo {
-    public static void main(String[] args) {
+    public static void main(String[] args) {/*
         Rectangulo juego = new Rectangulo(true);
         juego.iniciar();
         String [] arrayEntrada = {"","","",""};        
@@ -81,6 +81,6 @@ public class testRectangulo {
                 terminaJuego = true;
                 System.out.println("Fin del juego!");
             }
-        }
+        }*/
     }
 }
