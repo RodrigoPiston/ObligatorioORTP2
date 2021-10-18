@@ -33,11 +33,11 @@ public class Ficha {
     
     @Override
     public boolean equals(Object obj) {
-        return this.getNombre().equalsIgnoreCase(((Ficha) obj).getNombre()) && this.getIdColor() == ((Ficha) obj).getIdColor();
+        return this.getNombre().equals(((Ficha) obj).getNombre()) && this.getIdColor() == ((Ficha) obj).getIdColor();
     }
 
     private void asignaColor() {
-        this.color = utilidad.Generico.COLORES[idColor];
+        this.color = utilidad.Generico.Colores[idColor];
     }
     
     public boolean esNumeral() {

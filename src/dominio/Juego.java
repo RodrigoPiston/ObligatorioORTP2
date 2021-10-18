@@ -11,7 +11,7 @@ public abstract class Juego {
     private boolean configuracionPrecargada;
     private int puntaje;
     private Tablero tablero;
-    private String[][] anexos;
+    private boolean movimientosDisponibles;
     
     public Juego(boolean configuracionPrecargada) {
         this.setConfiguracionPrecargada(configuracionPrecargada);
@@ -40,8 +40,17 @@ public abstract class Juego {
     public void setTablero(Tablero tablero) {
         this.tablero = tablero;
     }
+
+    public boolean getMovimientosDisponibles() {
+        return movimientosDisponibles;
+    }
+
+    public void setMovimientosDisponibles(boolean movimientosDisponibles) {
+        this.movimientosDisponibles = movimientosDisponibles;
+    }
     
     public abstract void iniciar();
     public abstract void recargar();    
-    public abstract int calcularPuntaje();    
+    public abstract void calcularPuntaje(); 
+    public abstract boolean obtenerMovimientosDisponibles();
 }

@@ -6,12 +6,11 @@ package dominio;
  */
 public class TableroRectangulo extends Tablero {
 
-    private static String [][] anexos = {{},{},{},{}};
     private static int ancho = 20;
     private static int largo = 20;
     
     public TableroRectangulo() {
-        super(ancho, largo,anexos);
+        super(ancho, largo);
         this.generarFichasPredeterminadas();
     }
 

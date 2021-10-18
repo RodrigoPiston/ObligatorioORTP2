@@ -53,25 +53,26 @@ public class Sistema {
         return !agregar;
     }
     
-    public ArrayList<Partida> partidasOrdenadasPuntajeAsc(){
-        Collections.sort(this.getListaPartidas(),(partida1, partida2) -> {
-            return partida1.getPuntaje() - partida2.getPuntaje(); 
-        });
-        return this.getListaPartidas();
-    }
-    
     public ArrayList<Partida> partidasOrdenadasPuntajeDesc(){
         Collections.sort(this.getListaPartidas(),(partida1, partida2) -> {
-            return partida2.getPuntaje() - partida1.getPuntaje(); 
+            return partida2.getJuego().getPuntaje() - partida1.getJuego().getPuntaje(); 
         });
         return this.getListaPartidas();
     }
 
-     public ArrayList<Partida> partidasOrdenadasAliasDesc(){
+    public ArrayList<Partida> partidasOrdenadasAliasCrec(){
         Collections.sort(this.getListaPartidas(),(partida1, partida2) -> {
             return partida1.getJugador().getAlias().compareTo(partida2.getJugador().getAlias()) ; 
         });
         return this.getListaPartidas();
     }
+    
+    public ArrayList<Partida> partidasOrdenadasFechaDecr(){
+        Collections.sort(this.getListaPartidas(),(partida1, partida2) -> {
+            return partida1.getFechaHoraComienzo().compareTo(partida2.getFechaHoraComienzo()) ; 
+        });
+        return this.getListaPartidas();
+    }
+    
     
 }

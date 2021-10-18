@@ -1,5 +1,8 @@
 package dominio;
 import java.time.LocalDateTime; 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  *
@@ -7,11 +10,57 @@ import java.time.LocalDateTime;
  */
 public class Saltar extends Juego{
 
+    private Ficha fichaActual;
+    private int siguienteColumnaRecomendada;
+    private ArrayList<Ficha> listaFichas;
+    private Iterator<Ficha> iteradorFichas;
+    
     public Saltar(boolean configuracionPredeterminada) {
         super(configuracionPredeterminada);
         this.setTablero(new TableroSaltar());
+        this.setListaFichas(new ArrayList<Ficha>());
+        this.addListaFichas(new Ficha(1,"#"));
+        this.addListaFichas(new Ficha(2,"#"));
+        this.addListaFichas(new Ficha(3,"#"));
+        this.addListaFichas(new Ficha(4,"#"));
+        iteradorFichas = this.getListaFichas().iterator();
     }
 
+    public Ficha getFichaActual() {
+        return fichaActual;
+    }
+
+    public void setFichaActual(Ficha fichaActual) {
+        this.fichaActual = fichaActual;
+    }
+
+    public int getSiguienteColumnaRecomendada() {
+        return siguienteColumnaRecomendada;
+    }
+
+    public void setSiguienteColumnaRecomendada(int siguienteColumnaRecomendada) {
+        this.siguienteColumnaRecomendada = siguienteColumnaRecomendada;
+    }
+
+    public ArrayList<Ficha> getListaFichas() {
+        return listaFichas;
+    }
+   
+    public void setListaFichas(ArrayList<Ficha> listaFichas) {
+        this.listaFichas = listaFichas;
+    }
+    public void addListaFichas(Ficha ficha) {
+        this.listaFichas.add(ficha);
+    }
+
+    public Iterator<Ficha> getIteradorFichas() {
+        return iteradorFichas;
+    }
+    
+    public void resetIteradorFichas(Iterator<Ficha> iteradorFichas) {
+        this.iteradorFichas = this.getListaFichas().iterator();
+    }
+    
     public void iniciar(){
         if(!this.getConfiguracionPredeterminada()){
             this.getTablero().generarFichasAlAzar();
@@ -21,11 +70,25 @@ public class Saltar extends Juego{
     
     public void recargar(){
         this.getTablero().generarTablero();
+        this.siguienteFicha();
+        if(this.getFichaActual() != null){
+            this.setMovimientosDisponibles(this.comprobarFichasAreaBase());
+            if(this.getMovimientosDisponibles()){
+                this.setMovimientosDisponibles(this.obtenerMovimientosDisponibles());
+            }
+        }
+        this.calcularPuntaje();
     }
-
-    public boolean siguienteMovimiento(Ficha fichaActual,int colSeleccionada){
+    
+    public void siguienteFicha(){
+        if(!this.getIteradorFichas().hasNext()){
+            this.resetIteradorFichas(iteradorFichas);
+        }
+        this.setFichaActual(this.getIteradorFichas().next());
+    }
+    
+    public boolean siguienteMovimiento(int colSeleccionada){
         boolean movimientoPermitido = false;
-        Ficha fichaVacia = new Ficha(0," ");
         Ficha [][] tableroFichas = this.getTablero().getFichas();
         if(colSeleccionada >= 0 && colSeleccionada <= 3 ){
             int filaOrigen = 0;
@@ -33,26 +96,26 @@ public class Saltar extends Juego{
             int filaDestino = 0;
             for (int fila = tableroFichas.length -1; fila > 0 ; fila--) {
                 // -- Si se encuentra el color en la columna, se verifica cuantas veces hay que saltar
-                if(tableroFichas[fila][colSeleccionada].equals(fichaActual)){
+                if(tableroFichas[fila][colSeleccionada].equals(this.getFichaActual())){
                     filaOrigen = fila;
                     for (int columna = 0; columna < tableroFichas[0].length; columna++) {
-                        if(!tableroFichas[fila][columna].equals(fichaVacia)){
+                        if(!tableroFichas[fila][columna].equals(utilidad.Generico.FichaVacia)){
                             cantidadSaltos ++;
                         }                    
                     }
                 }
             }
             filaDestino = filaOrigen - cantidadSaltos;
-            if(filaDestino > 0 && filaOrigen > 4  && tableroFichas[filaDestino][colSeleccionada].equals(fichaVacia) ){
+            if(filaDestino > 0 && filaOrigen > 4  && tableroFichas[filaDestino][colSeleccionada].equals(utilidad.Generico.FichaVacia) ){
                 movimientoPermitido = true;
                 for (int columna = 0; columna < tableroFichas[filaDestino].length && movimientoPermitido; columna++) {
-                    if(tableroFichas[filaDestino][columna] == fichaActual){
+                    if(tableroFichas[filaDestino][columna] == this.getFichaActual()){
                         movimientoPermitido = false;
                     }
                 }
                 if(movimientoPermitido){
-                    tableroFichas[filaOrigen][colSeleccionada] = fichaVacia;
-                    tableroFichas[filaDestino][colSeleccionada] = fichaActual;
+                    tableroFichas[filaOrigen][colSeleccionada] = utilidad.Generico.FichaVacia;
+                    tableroFichas[filaDestino][colSeleccionada] = this.getFichaActual();
                 }
             }else{
                 movimientoPermitido = false;
@@ -67,40 +130,57 @@ public class Saltar extends Juego{
         int columnaRecomendada = -1;
         int cantidadSaltos;
         int filaDestino;
-        boolean valido = true;
-        for (int fila = 5; fila < matrizFichas.length && valido; fila++) {
-            for (int columna = 0; columna < matrizFichas[0].length && valido; columna++) {
+        boolean fichaValida = true;
+        for (int fila = 5; fila < matrizFichas.length && columnaRecomendada == -1; fila++) {
+          
+            for (int columna = 0; columna < matrizFichas[0].length; columna++) {
+                fichaValida = true;
                 cantidadSaltos = 0;
                 if(matrizFichas[fila][columna].equals(ficha)){
                     for (int columnaFicha = 0; columnaFicha < matrizFichas[fila].length; columnaFicha++) {
-                        if(!matrizFichas[fila][columna].equals(utilidad.Generico.fichaVacia)){
+                        if(!matrizFichas[fila][columnaFicha].equals(utilidad.Generico.FichaVacia)){
                             cantidadSaltos ++;
                         }
                     }
                     filaDestino = fila - cantidadSaltos;
-                    if(filaDestino > 0 && matrizFichas[filaDestino][columna].equals(utilidad.Generico.fichaVacia) ){
-                        for (int columnaDeFilaDestino = 0; columnaDeFilaDestino < matrizFichas[filaDestino].length && columnaRecomendada == -1; columnaDeFilaDestino++) {
-                            if(matrizFichas[filaDestino][columnaDeFilaDestino].equals(ficha)){
-                                valido = false;
+                    if(filaDestino > 0 && matrizFichas[filaDestino][columna].equals(utilidad.Generico.FichaVacia) ){
+                        for (int columnaDestino = 0; columnaDestino < matrizFichas[0].length && fichaValida; columnaDestino++) {
+                            if(matrizFichas[filaDestino][columnaDestino].getFichaColoreada().equals(ficha.getFichaColoreada())){
+                                fichaValida = false;
                             }
                         }
-                        if(valido){
-                            columnaRecomendada = columna;
-                        }
+                    }else{
+                        fichaValida = false;
                     }
+                }else{
+                    fichaValida = false;
+                }
+                if(fichaValida){
+                    columnaRecomendada = columna;
                 }
             }
         }
         return columnaRecomendada;
     }
     
-    public int calcularPuntaje(){
+    public boolean comprobarFichasAreaBase(){
+        int contador = 0;
+        for (int fila = 5; fila < this.getTablero().getFichas().length; fila++) {
+            for (int columna = 0; columna < this.getTablero().getFichas()[0].length; columna++) {
+                if(!this.getTablero().getFichas()[fila][columna].equals(utilidad.Generico.FichaVacia)){
+                    contador ++;
+                }
+            }
+        }
+        return contador > 2;
+    }
+    
+    public void calcularPuntaje(){
         Ficha [][] tableroFichas = this.getTablero().getFichas();
-        Ficha fichaVacia = new Ficha(0," ");
         int puntaje = 0;
         for (int fila = 0; fila <  tableroFichas.length && fila <= 4; fila++) {
             for (int columna = 0; columna <  tableroFichas[0].length; columna++) {
-                if(!tableroFichas[fila][columna].equals(fichaVacia)){
+                if(!tableroFichas[fila][columna].equals(utilidad.Generico.FichaVacia)){
                     switch(fila){
                         case 0:
                             puntaje += 60;
@@ -121,6 +201,12 @@ public class Saltar extends Juego{
                 }
             }
         }
-        return puntaje;
+        this.setPuntaje(puntaje);
+    }
+
+    @Override
+    public boolean obtenerMovimientosDisponibles() {
+        this.setSiguienteColumnaRecomendada(obtenerColumnaRecomendada(this.getFichaActual()));
+        return this.getSiguienteColumnaRecomendada()  != -1;
     }
 }

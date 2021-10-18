@@ -10,7 +10,7 @@ public class Rectangulo extends Juego {
         super(configuracionPredeterminada);
         this.setTablero(new TableroRectangulo());
     }
-
+    
     public void iniciar(){
         if(!this.getConfiguracionPredeterminada()){
             this.getTablero().generarFichasAlAzar();
@@ -20,6 +20,8 @@ public class Rectangulo extends Juego {
     
     public void recargar(){
         this.getTablero().generarTablero();
+        this.setMovimientosDisponibles(this.obtenerMovimientosDisponibles());
+        this.calcularPuntaje();
     }
 
     public boolean siguienteMovimiento(Ficha ficha,int coordenadaXInicial, int coordenadaYInicial, int rectanguloAlto, int rectanguloAncho, boolean primeraJugada) {
@@ -29,12 +31,12 @@ public class Rectangulo extends Juego {
         // -- Si no se le resta 1 estaría desfasado en el array
         coordenadaXInicial -= 1;
         coordenadaYInicial -= 1;
+        // -- Se calcula limites del rectangulo
         int coordenadaXFinal = (coordenadaXInicial + rectanguloAlto);
         int coordenadaYFinal = (coordenadaYInicial + rectanguloAncho);
         Ficha[][] tableroAuxiliar = new Ficha [this.getTablero().getAncho()][this.getTablero().getLargo()];  
-        
-        utilidad.Generico.CopiarMatriz(this.getTablero().getFichas(), tableroAuxiliar);
-        
+        // -- Se copia la matriz para que no queden referenciadas
+        utilidad.Generico.copiarMatriz(this.getTablero().getFichas(), tableroAuxiliar);
         // -- Si las coordenadas estan dentro del tamaño del tablero
         if(coordenadaXInicial >= 0 && coordenadaXInicial < tableroAuxiliar[0].length && coordenadaYInicial >= 0 && coordenadaYInicial < tableroAuxiliar.length){
             // -- Se recorre el tablero solo en las posiciones del rectangulo cálculado para ahorrar iteraciones innecesarias
@@ -46,7 +48,6 @@ public class Rectangulo extends Juego {
                     }else{
                         tableroAuxiliar[fila][columna] = ficha;
                     }
-                    
                     // -- Se controlan los bordes exteriores, sin pasarse del límite del rectangulo,
                     //    Si esta en el límite || es un rectangulo de 1 de ancho || 1 de alto && no se sobrepasa del límite de la matríz && es númeral
                     // -- Borde Superior
@@ -68,13 +69,14 @@ public class Rectangulo extends Juego {
             movimientoPermitido = false;
         }
         movimientoPermitido = movimientoPermitido && (encontroAdyacente || primeraJugada);
+        // -- Se vuelve a copiar la matriz para que no quede el valor referenciado
         if(movimientoPermitido){
-            utilidad.Generico.CopiarMatriz(tableroAuxiliar, this.getTablero().getFichas());
+            utilidad.Generico.copiarMatriz(tableroAuxiliar, this.getTablero().getFichas());
         }
         return movimientoPermitido;
     }
     
-    public int calcularPuntaje(){
+    public void calcularPuntaje(){
         int puntaje = 0;
         for (int fila = 0; fila < this.getTablero().getFichas().length; fila++) {
             for (int columna = 0; columna < this.getTablero().getFichas()[0].length; columna++) {
@@ -83,10 +85,11 @@ public class Rectangulo extends Juego {
                 }
             }
         }
-        return puntaje;
+        this.setPuntaje(puntaje);
     };
     
-    public boolean quedanRectangulosDisponibles(){
+    @Override
+    public boolean obtenerMovimientosDisponibles() {
         boolean disponible = false;
         for (int fila = 0; fila < this.getTablero().getFichas().length; fila++) {
             for (int columna = 0; columna < this.getTablero().getFichas()[0].length && !disponible ; columna++) {

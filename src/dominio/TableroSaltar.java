@@ -5,12 +5,11 @@ package dominio;
  * @author  Rodrigo Pistón(261777) | Rodrigo Camps(241344)
  */
 public class TableroSaltar extends Tablero{
-    private static String [][] anexos = {{"60","40","30","20","10"},{},{""},{"1","2","3","4"}};
     private static int ancho = 11;
     private static int largo = 4;
 
     public TableroSaltar() {
-        super(ancho, largo,anexos);
+        super(ancho, largo);
         this.generarFichasPredeterminadas();
     }
 
@@ -45,8 +44,7 @@ public class TableroSaltar extends Tablero{
                     }else{
                         contenidoTablero[fila][columna] = " ";
                     }
-                }
-                else if(filaPar){
+                }else if(filaPar){
                     if(!columnaPar){
                         contenidoTablero[fila][columna] = "|"; 
                     }else{
@@ -55,8 +53,7 @@ public class TableroSaltar extends Tablero{
                         }
                         columnaTableroFichas ++;
                     }
-                }
-                else if(columnaPar){
+                }else if(columnaPar){
                     contenidoTablero[fila][columna] = "-";
                 }else if(!columnaPar) {
                     contenidoTablero[fila][columna] = "+"; 
@@ -80,7 +77,7 @@ public class TableroSaltar extends Tablero{
             for (int columna = 0; columna < super.getFichas()[0].length ; columna++) {
                 ficha = super.getFichas()[fila][columna];
                 
-                if(!ficha.equals(new Ficha(0," "))){
+                if(!ficha.equals(utilidad.Generico.FichaVacia)){
                     int valorActual = ficha.getIdColor() + offset;
                     if(valorActual > 4){
                         int diferencia = (valorActual - 4);
@@ -88,7 +85,6 @@ public class TableroSaltar extends Tablero{
                     }else{
                         ficha.setIdColor(valorActual);
                     }
-                    
                     super.agregarFicha(ficha, fila, columna);
                 }
             }
@@ -101,7 +97,6 @@ public class TableroSaltar extends Tablero{
         Ficha fAzul = new Ficha(2,"#");
         Ficha fVerde = new Ficha(3,"#");
         Ficha fAma = new Ficha(4,"#");
-        Ficha fVacia = new Ficha(0," ");
 
         Ficha [][] listaFichas = {{fRoja,fAzul,fVerde,fAma},{fAzul,fRoja,fAma,fVerde},{fVerde,fAma,fAzul,fRoja},{fAma,fVerde,fRoja,fAzul}};
         
@@ -110,7 +105,7 @@ public class TableroSaltar extends Tablero{
                 if(fila > 6){
                     this.agregarFicha(listaFichas[fila - 7][columna], fila, columna);
                 }else{
-                    this.agregarFicha(fVacia, fila, columna);
+                    this.agregarFicha(utilidad.Generico.FichaVacia, fila, columna);
                 }
             }
         }

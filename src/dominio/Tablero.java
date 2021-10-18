@@ -13,12 +13,10 @@ public abstract class Tablero {
     /*
         En el anexo se encuentra las partes laterales del tablero, como los puntos y número de columna
     */
-    private String [][] anexos = new String[4][1]; 
 
-    public Tablero(int largo, int ancho,String[][] anexos) {
+    public Tablero(int largo, int ancho) {
         this.largo = largo;
         this.ancho = ancho;
-        this.anexos = anexos;
         this.fichas = new Ficha[largo][ancho];
     }
 
@@ -26,10 +24,6 @@ public abstract class Tablero {
         return contenido;
     }
 
-    public String[][] getAnexos() {
-        return anexos;
-    }
-    
     public Ficha[][] getFichas() {
         return fichas;
     }

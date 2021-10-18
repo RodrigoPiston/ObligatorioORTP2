@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class MenuPrincipal {
     
-    public static Sistema sistema = new Sistema();
+    public static Sistema Sistema = new Sistema();
     
     public void mostrarOpciones(){
         System.out.println("_________________________");
@@ -20,20 +20,8 @@ public class MenuPrincipal {
         System.out.println("| [4] Bitácora          |");   
         System.out.println("| [5] Salir             |");
         System.out.println("________________________");
+    }
 
-    }
-    
-    public void mostrarOpcionesBitacora(){
-        System.out.println("______________________________");
-        System.out.println(" Seleccione orden de vista:   ");
-        System.out.println("| [1] Por alias creciente     |");
-        System.out.println("| [2] Por alias decreciente   |");
-        System.out.println("| [3] Por puntaje creciente   |");
-        System.out.println("| [4] Por puntaje decreciente |");   
-        System.out.println("| [5] Volver                  |");
-        System.out.println("______________________________");
-    }
-    
     public void mostrarMenu(){
         boolean salir = false;
         int opcion;
@@ -43,24 +31,20 @@ public class MenuPrincipal {
                 opcion = utilidad.Entrada.leerInt("una de las opciones", 0, 5);
                 switch (opcion) {
                     case 1:
-                        MenuSecundario.RegistrarJugador();
+                        MenuSecundario.registrarJugador();
                         break;
                     case 2: case 3:
-                        if(this.sistema.getListaJugadores().size() == 0){
+                        if(this.Sistema.getListaJugadores().size() == 0){
                             System.out.println("Debe de ingresar un jugador primero para elegir cualquier juego.");
                         }else{
-                            MenuSecundario.CrearPartida(opcion);
+                            MenuSecundario.crearPartida(opcion);
                         }
                         break;
                     case 4:
-                        if(this.sistema.getListaPartidas().size() == 0){
+                        if(this.Sistema.getListaPartidas().size() == 0){
                             System.out.println("No hay partidas registradas en la bitacora.");
                         }else{
-                            mostrarOpcionesBitacora();
-                            opcion = utilidad.Entrada.leerInt("una de las opciones", 0, 5);
-                            if(opcion != 5){
-                                MenuSecundario.MostrarBitacora(opcion);
-                            }
+                            MenuSecundario.mostrarPartidas();
                         }
                         break;
                     case 5:
